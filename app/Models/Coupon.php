@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Cart extends Model
+class Coupon extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
      /**
      * The attributes that aren't mass assignable.
@@ -16,18 +17,13 @@ class Cart extends Model
      */
     protected $guarded = ['id'];
 
-    public function inventories(){
-        return $this->belongsTo(Inventory::class, 'inventory_id');
-    }
-
-     /**
+      /**
      * The attributes that should be cast.
      *
      * @var array<string, string>
      */
     protected $casts = [
-        'start_date' => 'datetime',
-        'end_date' => 'datetime',
+        'start_date' => 'date',
+        'end_date' => 'date',
     ];
-
 }

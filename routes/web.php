@@ -8,11 +8,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\ColorController;
 use App\Http\Controllers\Backend\BackendController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\InventoryController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SizeController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Backend\RolePermissionController;
+use App\Http\Controllers\Backend\ShippingConditionController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Backend\UserMetaController;
 use App\Http\Controllers\Backend\UserProfileController;
@@ -52,6 +54,11 @@ use App\Models\UserProfile;
         Route::post('cart/store', 'store')->name('store');
         Route::delete('cart/destroy/{cart}', 'destroy')->name('destroy');
         Route::post('cart/update', 'update')->name('update');
+
+        Route::post('cart/coupon/apply', 'couponApply')->name('coupon.apply');
+        Route::post('cart/apply/shipping', 'shippingApply')->name('shipping.apply');
+
+        Route::get('checkout', 'checkoutOrder')->name('checkout.order');
     });
 
 //Back-End route
@@ -165,6 +172,27 @@ use App\Models\UserProfile;
     Route::delete('/delete/{id}','destroy')->name('delete');
 
 });
+
+    Route::controller(CouponController::class)->prefix('coupon')->name('coupon.')->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::post('/', 'store')->name('store');
+    Route::get('/edit/{coupon}', 'edit')->name('edit');
+    Route::put('/update/{coupon}', 'update')->name('update');
+    Route::delete('/delete/{id}', 'destroy')->name('destroy');
+    Route::get('/restore/{id}', 'restore')->name('restore');
+    Route::delete('/permanent/delete/{id}', 'permanentDestroy')->name('permanent.destroy');
+    });
+
+    Route::controller(ShippingConditionController::class)->prefix('shipping/condition')->name('shipping.condition.')->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::post('/', 'store')->name('store');
+    Route::get('/edit/{shippingcondition}', 'edit')->name('edit');
+    Route::put('/update/{shippingcondition}', 'update')->name('update');
+
+    // Route::delete('/delete/{id}', 'destroy')->name('destroy');
+    // Route::get('/restore/{id}', 'restore')->name('restore');
+    // Route::delete('/permanent/delete/{id}', 'permanentDestroy')->name('permanent.destroy');
+    });
 
 });
 

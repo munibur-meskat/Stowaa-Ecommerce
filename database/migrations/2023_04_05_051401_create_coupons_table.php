@@ -13,12 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('carts', function (Blueprint $table) {
+        Schema::create('coupons', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('inventory_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->integer('quantity');
-            $table->decimal('cart_total');
+            $table->string('name');
+            $table->integer('amount');
+            $table->string('applicable_amount');
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->boolean('status')->default(true);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -30,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('carts');
+        Schema::dropIfExists('coupons');
     }
 };

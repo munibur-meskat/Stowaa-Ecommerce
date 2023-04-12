@@ -305,6 +305,20 @@ data-responsive-width="992px">
             </li>
             @endcan
             
+            <li class="sidebar-menu-item {{ Route::is('dashboard.coupon.*') ? 'active' : '' }}">
+                <a class="sidebar-menu-button" href="{{ route('dashboard.coupon.index') }}" aria-expanded="false">
+                    <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">slideshow</i>
+                    <span class="sidebar-menu-text">Coupon</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-menu-item {{ Route::is('dashboard.shipping.condition.*') ? 'active' : '' }}">
+                <a class="sidebar-menu-button" href="{{ route('dashboard.shipping.condition.index') }}" aria-expanded="false">
+                    <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">slideshow</i>
+                    <span class="sidebar-menu-text">Shipping Condition</span>
+                </a>
+            </li>
+
             @can('role show|role create')
             <li class="sidebar-menu-item">
                 <a class="sidebar-menu-button collapsed" data-toggle="collapse" href="#role_menu" aria-expanded="false">
