@@ -43,7 +43,7 @@
                             <td>
                                 <div class="cart_product">
                                     <img src="{{ asset('storage/products/' .$cart->inventories->products->image) }}" alt="image_not_found">
-                                    <h3><a href="shop_details.html">{{ $cart->inventories->products->title }}</a></h3>
+                                    <h3><a href="#">{{ $cart->inventories->products->title }}</a></h3>
                                 </div>
                             </td>
                             <td class="text-center">
@@ -128,7 +128,7 @@
 
                     <div class="col col-lg-6">
                         <ul class="btns_group ul_li_right">
-                            <li><a class="btn btn_dark" href="{{ route('frontend.cart.checkout.order') }}">Prceed To Checkout</a></li>
+                            <li><a class="btn btn_dark" href="{{ route('frontend.cart.checkout.order') }}">Proceed To Checkout</a></li>
                         </ul>
                     </div>
                 </div>
@@ -185,6 +185,11 @@
                 <div class="col col-lg-6">
                     <div class="cart_total_table">
                         <h3 class="wrap_title">Cart Totals</h3>
+
+                        {{-- @if (Session::has('shipping_charge'))
+                        {{ Session::get('shipping_charge') }}
+                        @endif --}}
+
                         <ul class="ul_li_block">
                             <li>
                                 <span>Cart Subtotal</span>

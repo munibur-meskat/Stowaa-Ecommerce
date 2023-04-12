@@ -170,11 +170,12 @@ class CartController extends Controller
             'shipping_amount' => $data->shipping_amount,
             'grand_total' => $grand_total,
         ];
-        
+        Session::put('shipping_charge', $data->shipping_amount);
         return response()->json($data_shipping);
     }
 
     public function checkoutOrder() {
-        return view('frontend.cart.checkout');
+        $carts = Cart::with('inventories')->where('user_id', auth()->user()->id)->get();
+        return view('frontend.cart.checkout', compact('carts'));
     }
 }

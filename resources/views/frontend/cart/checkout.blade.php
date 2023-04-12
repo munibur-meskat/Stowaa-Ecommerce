@@ -117,31 +117,55 @@
                                        </tr>
                                     </thead>
                                     <tbody>
-                                       <tr class="cart_item">
+                                       @foreach ($carts as $cart)
+                                          <tr class="cart_item">
                                           <td class="product-name">
-                                             Checked Hoodies Woo&nbsp; <strong class="product-quantity">&times; 1</strong> 
+                                             {{ $cart->inventories->products->title }} <strong class="product-quantity">× {{ $cart->quantity }}
+                                             </strong>
                                           </td>
                                           <td class="product-total">
-                                             <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&pound;</span>165.00</span>
+                                             <span class="woocommerce-Price-amount amount">
+                                                <span class="woocommerce-Price-currencySymbol">$</span>{{ $cart->cart_total }}</span>
                                           </td>
                                        </tr>
+                                       @endforeach
                                     </tbody>
                                     <tfoot>
                                        <tr class="cart-subtotal">
                                           <th>Subtotal</th>
-                                          <td><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&pound;</span>165.00</span>
+                                          <td><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>{{ $carts->sum('cart_total') }}</span>
                                           </td>
                                        </tr>
+                                       @if (Session::has('shipping_charge'))
                                        <tr class="shipping">
                                           <th>Shipping</th>
                                           <td data-title="Shipping">
-                                             Free Shipping
-                                             <input type="hidden" name="shipping_method[0]" data-index="0" id="shipping_method_0" value="free_shipping:1" class="shipping_method" />
+                                             +
+                                            {{ Session::get('shipping_charge') > 0 ? Session::get('shipping_charge') : 'Free Shipping' }}
                                           </td>
                                        </tr>
+                                       @endif
+
+                                       @if (Session::has('coupon'))
+                                       <tr class="shipping">
+                                          <th>Coupon ({{ Session::get('coupon')['name'] }})</th>
+                                          <td data-title="Shipping">
+                                             -
+                                            {{ Session::get('coupon')['amount'] ? Session::get('coupon')['amount'] : '' }}
+
+                                          </td>
+                                       </tr>
+                                       @endif
                                        <tr class="order-total">
                                           <th>Total</th>
-                                          <td><strong><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&pound;</span>165.00</span></strong> </td>
+                                          <td>
+                                             <strong>
+                                                <span class="woocommerce-Price-amount amount">
+                                                   <span class="woocommerce-Price-currencySymbol">$</span>
+                                                   {{ ($carts->sum('cart_total') + Session::get('shipping_charge') ?? 0) - Session::get('coupon')['amount'] ?? 0 }}
+                                             </span>
+                                             </strong> 
+                                          </td>
                                        </tr>
                                     </tfoot>
                                  </table>
