@@ -162,7 +162,13 @@
                                              <strong>
                                                 <span class="woocommerce-Price-amount amount">
                                                    <span class="woocommerce-Price-currencySymbol">$</span>
-                                                   {{ ($carts->sum('cart_total') + Session::get('shipping_charge') ?? 0) - Session::get('coupon')['amount'] ?? 0 }}
+                                                   @if (Session::has('shipping_charge'))
+                                                      {{ $carts->sum('cart_total') + Session::get('shipping_charge') }}
+
+                                                   @elseif (Session::has('shipping_charge') && Session::has('coupon')['amount'])
+                                                   
+                                                   {{ ($carts->sum('cart_total') + Session::get('shipping_charge')) - Session::get('coupon')['amount'] }}
+                                                   @endif
                                              </span>
                                              </strong> 
                                           </td>
@@ -195,14 +201,9 @@
                                        </li>
                                     </ul>
                                     <div class="form-row place-order">
-                                       <noscript>
-                                          Since your browser does not support JavaScript, or it is disabled, please ensure you click the <em>Update Totals</em> button before placing your order. You may be charged more than the amount stated above if you fail to do so.
-                                          <br/>
-                                          <input type="submit" class="button alt" name="woocommerce_checkout_update_totals" value="Update totals" />
-                                       </noscript>
-                                       <input type="submit" class="button alt" name="woocommerce_checkout_place_order" id="place_order" value="Place order" data-value="Place order" />
-                                       <input type="hidden" id="_wpnonce5" name="_wpnonce" value="783c1934b0" />
-                                       <input type="hidden" name="_wp_http_referer" value="/wp/?page_id=6" /> 
+                                       
+                                       <input type="submit" class="button alt" id="place_order" value="Place order" />
+                                       
                                     </div>
                                  </div>
                               </div>
@@ -219,4 +220,18 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('frontend/css/woocommerce-2.css') }}">
+@endsection
+
+@section('js')
+<script>
+   (function (window, document) {
+       var loader = function () {
+           var script = document.createElement("script"), tag = document.getElementsByTagName("script")[0];
+           script.src = "https://sandbox.sslcommerz.com/embed.min.js?" + Math.random().toString(36).substring(7);
+           tag.parentNode.insertBefore(script, tag);
+       };
+
+       window.addEventListener ? window.addEventListener("load", loader, false) : window.attachEvent("onload", loader);
+   })(window, document);
+</script>
 @endsection
