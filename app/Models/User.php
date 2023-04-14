@@ -10,8 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable implements MustVerifyEmail
-{
+class User extends Authenticatable implements MustVerifyEmail {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes, HasRoles;
 
     /**
@@ -51,5 +50,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function user_meta(){
         return $this->hasOne(UserMeta::class, 'user_id');
+    }
+
+    public function user_info(){
+        return $this->hasOne(UserInfo::class, 'user_id');
     }
 }

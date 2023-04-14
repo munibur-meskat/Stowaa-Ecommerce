@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('shipping_charge')->nullable();
             $table->string('order_status')->default('processing')->comment('processing, complete, cancel');
             $table->boolean('status')->default(true);
+            $table->longText('order_note')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -1,26 +1,27 @@
 <?php
 
-use App\Http\Controllers\Auth\LoginController;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use App\Models\UserProfile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Backend\ColorController;
-use App\Http\Controllers\Backend\BackendController;
-use App\Http\Controllers\Backend\CategoryController;
-use App\Http\Controllers\Backend\CouponController;
-use App\Http\Controllers\Backend\InventoryController;
-use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Backend\SizeController;
-use App\Http\Controllers\Frontend\FrontendController;
-use App\Http\Controllers\Backend\RolePermissionController;
-use App\Http\Controllers\Backend\ShippingConditionController;
 use App\Http\Controllers\Backend\UserController;
-use App\Http\Controllers\Backend\UserMetaController;
-use App\Http\Controllers\Backend\UserProfileController;
+use App\Http\Controllers\Backend\ColorController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\ShopController;
-use App\Models\UserProfile;
+use App\Http\Controllers\Backend\CouponController;
+use App\Http\Controllers\Backend\BackendController;
+use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\UserMetaController;
+use App\Http\Controllers\Backend\InventoryController;
+use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\SslCommerzPaymentController;
+use App\Http\Controllers\Backend\UserProfileController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use App\Http\Controllers\Backend\RolePermissionController;
+use App\Http\Controllers\Backend\ShippingConditionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -197,10 +198,9 @@ use App\Models\UserProfile;
 });
 
 // SSLCOMMERZ Start
-Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
-Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
 
 Route::post('/pay', [SslCommerzPaymentController::class, 'index']);
+
 Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
 
 Route::post('/success', [SslCommerzPaymentController::class, 'success']);

@@ -25,11 +25,10 @@
                   <div class="row">
                      <div class="col col-xs-12">
                         <div class="woocommerce">
-                          
                            <div class="woocommerce-info">Have a coupon? <a href="#" class="showcoupon">Click here to enter your code</a>
                            </div>
-                          
-                           <form name="checkout" method="post" class="checkout woocommerce-checkout" action="#" enctype="multipart/form-data">
+                           <form action="{{ url('/pay') }}" method="POST" class="checkout woocommerce-checkout needs-validation">
+                              @csrf
                               <div class="col2-set" id="customer_details">
                                  <div class="coll-1">
                                     <div class="woocommerce-billing-fields">
@@ -44,22 +43,23 @@
                                        </p>
                                        <p class="form-row form-row form-row-last validate-required validate-phone" id="billing_phone_field">
                                           <label for="billing_phone" class="">Phone <abbr class="required" title="required">*</abbr></label>
-                                          <input type="tel" class="input-text " name="billing_phone" id="billing_phone" placeholder="" autocomplete="tel" value="" />
+                                          <input type="tel" class="input-text " name="billing_phone" id="billing_phone" placeholder="" autocomplete="tel" value="{{ auth()->user()->user_info->phone ?? '' }}" />
                                        </p>
                                        <div class="clear"></div>
 
                                        <p class="form-row form-row form-row-wide address-field validate-required" id="billing_address_1_field">
                                           <label for="billing_address_1" class="">Address <abbr class="required" title="required">*</abbr></label>
-                                          <input type="text" class="input-text " name="billing_address_1" id="billing_address_1" placeholder="Street address" autocomplete="address-line1" value="" />
+                                          <input type="text" class="input-text " name="billing_address_1" id="billing_address_1" placeholder="Street address" autocomplete="address-line1" value="{{ auth()->user()->user_info->address ?? '' }}" />
                                        </p>
 
                                        <p class="form-row form-row address-field validate-postcode validate-required form-row-first  woocommerce-invalid-required-field" id="billing_city_field">
                                           <label for="billing_city" class="">City <abbr class="required" title="required">*</abbr></label>
-                                          <input type="text" class="input-text " name="billing_city" id="billing_city" placeholder="" autocomplete="address-level2" value="" />
+                                          <input type="text" class="input-text " name="billing_city" id="billing_city" placeholder="" autocomplete="address-level2" value="{{ auth()->user()->user_info->city ?? '' }}" />
                                        </p>
-                                       <p class="form-row form-row form-row-last address-field validate-required validate-postcode" id="billing_postcode_field">
-                                          <label for="billing_postcode" class="">ZIP <abbr class="required" title="required">*</abbr></label>
-                                          <input type="text" class="input-text " name="billing_postcode8" id="billing_postcode" placeholder="" autocomplete="postal-code" value="" />
+                                       <p class="form-row form-row form-row-last address-field validate-required validate-postcode" id="postcode_field">
+                                          <label for="postcode" class="">ZIP <abbr class="required" title="required">*</abbr></label>
+                                          <input type="text" class="input-text " name="postcode" id="postcode" placeholder="" autocomplete="postal-code" value="{{ auth()->user()->user_info->zip ?? '' }}" />
+                                          
                                        </p>
                                        
                                        <div class="clear"></div>
@@ -78,7 +78,7 @@
                                        </h3>
                                        <div class="shipping_address" style="display: none;">
                                           <p class="form-row form-row form-row-wide validate-required" id="shipping_name_field">
-                                             <label for="shipping_first_name" class="">Name <abbr class="required" title="required">*</abbr></label>
+                                             <label for="shipping_name" class="">Name <abbr class="required" title="required">*</abbr></label>
                                              <input type="text" class="input-text " name="shipping_name" id="shipping_first_name" placeholder="Full Name" autocomplete="given-name" value="" />
                                           </p>
                                           <p class="form-row form-row form-row-first validate-required validate-phone">
@@ -93,13 +93,13 @@
                                              <label for="shipping_address_1" class="">Address <abbr class="required" title="required">*</abbr></label>
                                              <input type="text" class="input-text " name="shipping_address_1" id="shipping_address_1" placeholder="Street address" autocomplete="address-line1" value="" />
                                           </p>
-                                          <p class="form-row form-row address-field validate-postcode validate-required form-row-first  woocommerce-invalid-required-field" id="billing_city_field2">
-                                             <label for="billing_city" class="">City <abbr class="required" title="required">*</abbr></label>
-                                             <input type="text" class="input-text " name="billing_city" id="billing_city3" placeholder="" autocomplete="address-level2" value="" />
+                                          <p class="form-row form-row address-field validate-postcode validate-required form-row-first  woocommerce-invalid-required-field" id="shipping_city_field2">
+                                             <label for="shipping_city" class="">City <abbr class="required" title="required">*</abbr></label>
+                                             <input type="text" class="input-text " name="shipping_city" id="shipping_city3" placeholder="" autocomplete="address-level2" value="" />
                                           </p>
-                                          <p class="form-row form-row form-row-last address-field validate-required validate-postcode" id="billing_postcode_field17">
-                                             <label for="billing_postcode" class="">ZIP <abbr class="required" title="required">*</abbr></label>
-                                             <input type="text" class="input-text " name="billing_postcode" id="billing_postcode4" placeholder="" autocomplete="postal-code" value="" />
+                                          <p class="form-row form-row form-row-last address-field validate-required validate-postcode" id="shipping_postcode_field17">
+                                             <label for="shipping_postcode" class="">ZIP <abbr class="required" title="required">*</abbr></label>
+                                             <input type="text" class="input-text " name="shipping_postcode" id="shipping_postcode4" placeholder="" autocomplete="postal-code" value="" />
                                           </p>
                                           <div class="clear"></div>
                                        </div>
@@ -188,7 +188,8 @@
                                              <p>Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</p>
                                           </div>
                                        </li>
-                                       <li class="wc_payment_method payment_method_paypal">
+
+                                       {{-- <li class="wc_payment_method payment_method_paypal">
                                           <input id="payment_method_paypal" type="radio" class="input-radio" name="payment_method" value="paypal" data-order_button_text="Proceed to PayPal" />
                                           <!--grop add span for radio button style-->
                                           <span class='grop-woo-radio-style'></span>
@@ -198,11 +199,19 @@
                                           <div class="payment_box payment_method_paypal" style="display:none;">
                                              <p>Pay via PayPal; you can pay with your credit card if you don&#8217;t have a PayPal account.</p>
                                           </div>
-                                       </li>
+                                       </li> --}}
+
                                     </ul>
                                     <div class="form-row place-order">
                                        
-                                       <input type="submit" class="button alt" id="place_order" value="Place order" />
+                                    {{-- <button class="button alt" id="sslczPayBtn" 
+                                    token="if you have any token validation" postdata=""
+                                    order="If you already have the transaction generated for current order"
+                                    endpoint="/pay-via-ajax" >Place order</button> --}}
+
+                                    {{-- <a href="{{ url('/example2') }}" class="button alt">Place Order</a> --}}
+
+                                    <button type="submit" class="button alt">Place Order</button>
                                        
                                     </div>
                                  </div>
@@ -222,7 +231,7 @@
 <link rel="stylesheet" href="{{ asset('frontend/css/woocommerce-2.css') }}">
 @endsection
 
-@section('js')
+{{-- @section('js')
 <script>
    (function (window, document) {
        var loader = function () {
@@ -234,4 +243,4 @@
        window.addEventListener ? window.addEventListener("load", loader, false) : window.attachEvent("onload", loader);
    })(window, document);
 </script>
-@endsection
+@endsection --}}
