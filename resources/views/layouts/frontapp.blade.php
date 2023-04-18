@@ -34,17 +34,19 @@
 
     <!-- select option - css include -->
     <link rel="stylesheet" type="text/css" href="{{asset('frontend/css/nice-select.css')}}">
+    
+    <!-- sweet alert css -->
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
 
     <!-- woocommercen - css include -->
     {{-- <link rel="stylesheet" type="text/css" href="{{asset('frontend/css/woocommerce.css')}}"> --}}
 
+    <!-- custom - css include -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/style.css') }}">
+
     @yield('css')
 
-    <!-- custom - css include -->
-    <link rel="stylesheet" type="text/css" href="{{asset('frontend/css/style.css')}}">
-
 </head>
-
 <body>
 
     <!-- body_wrap - start -->
@@ -625,6 +627,16 @@
     <!-- custom - main-js -->
     <script src="{{asset('frontend/js/main.js')}}"></script>
     
+    
+    <!-- sweet alert js -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
+    
+    @include('flash-message')
     @yield('js')
+
+    <script>
+        $('.toast').toast('show');
+    </script>
+        
 </body>
 </html>

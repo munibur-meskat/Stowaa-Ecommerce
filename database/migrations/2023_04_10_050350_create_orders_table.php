@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('coupon_amount')->nullable();
             $table->integer('shipping_charge')->nullable();
             $table->string('order_status')->default('processing')->comment('processing, complete, cancel');
-            $table->boolean('status')->default(true);
+            $table->string('payment_status')->default('unpaid')->comment('unpaid, paid');
             $table->longText('order_note')->nullable();
             $table->timestamps();
             $table->softDeletes();

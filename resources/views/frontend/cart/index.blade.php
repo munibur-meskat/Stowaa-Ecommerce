@@ -141,7 +141,7 @@
                         </h3>
                         <form action="#">
                             <div class="select_option clearfix">
-                                <select class="nice-select select_shipping" >
+                                <select class="form-control niceSelect nice-select select_shipping" >
                                     {{-- style="display: none;" --}}
                                     <option data-display="Select Your Currency">Select Your Option</option>
                                     

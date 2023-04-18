@@ -26,7 +26,11 @@
 
     <!-- Font Awesome FREE Icons -->
     <link type="text/css" href="{{ asset('backend/css/vendor-fontawesome-free.css') }}" rel="stylesheet">
-    <link type="text/css" href="{{ asset('backend/css/style.css') }}" rel="stylesheet">
+
+       <!-- sweet alert css -->
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('backend/css/style.css') }}">
 
         @yield('header-css')
 
@@ -448,12 +452,16 @@ data-responsive-width="992px">
 <!-- App Settings (safe to remove) -->
 <script src="{{ asset('backend/js/app-settings.js')}}"></script>
 
-@yield('footer-js');
+<!-- sweet alert js -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
+
+
+@include('flash-message')
+@yield('footer-js')
 
 <script>
 $('.toast').toast('show');
 </script>
 
 </body>
-
 </html>

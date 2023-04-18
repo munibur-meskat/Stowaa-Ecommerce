@@ -72,25 +72,23 @@
         });
     });
     // offcanvas - end
-    // --------------------------------------------------
 
     // select option - start
-    // --------------------------------------------------
+
     $('.niceSelect').niceSelect();
+
     // select option - end
-    // --------------------------------------------------
 
     // counter up - start
-    // --------------------------------------------------
+
     $('.counter').counterUp({
         delay: 10,
         time: 1000
     });
     // counter up - end
-    // --------------------------------------------------
 
     // popup images & videos - start
-    // --------------------------------------------------
+
     $('.popup_video').magnificPopup({
         type: 'iframe',
         preloader: false,
@@ -118,10 +116,9 @@
 
     });
     // popup images & videos - end
-    // --------------------------------------------------
 
     // multy count down - start
-    // --------------------------------------------------
+
     // $('.countdown_timer').each(function(){
     //     $('[data-countdown]').each(function() {
     //         var $this = $(this), finalDate = $(this).data('countdown');
@@ -135,10 +132,9 @@
     //     });
     // });
     // multy count down - end
-    // --------------------------------------------------
 
-    // main slider - start
-    // --------------------------------------------------
+    // main slider - 
+    
     $('.main_slider').slick({
         dots: true,
         fade: true,
@@ -900,35 +896,35 @@
     /*------------------------------------------
         = woocommerce
     -------------------------------------------*/
-    if($(".checkout-section").length) {        
-        var showLogInBtn = $(".woocommerce-info > a");
-        var showCouponBtn = $(".showcoupon");
-        var shipDifferentAddressBtn = $("#ship-to-different-address");
-        var loginForm = $("form.login");
-        var couponForm = $(".checkout_coupon");
-        var shippingAddress = $(".shipping_address");
+    // if($(".checkout-section").length) {        
+    //     var showLogInBtn = $(".woocommerce-info > a");
+    //     var showCouponBtn = $(".showcoupon");
+    //     var shipDifferentAddressBtn = $("#ship-to-different-address");
+    //     var loginForm = $("form.login");
+    //     var couponForm = $(".checkout_coupon");
+    //     var shippingAddress = $(".shipping_address");
 
-        loginForm.hide();
-        couponForm.hide();
-        shippingAddress.hide();
+    //     loginForm.hide();
+    //     couponForm.hide();
+    //     shippingAddress.hide();
 
-        showLogInBtn.on("click", function(event) {
-            event.preventDefault();
-            loginForm.slideToggle();
-            event.stopPropagation();
-        });
+    //     showLogInBtn.on("click", function(event) {
+    //         event.preventDefault();
+    //         loginForm.slideToggle();
+    //         event.stopPropagation();
+    //     });
 
-        showCouponBtn.on("click", function(event2) {
-            event2.preventDefault();
-            couponForm.slideToggle();
-            event2.stopPropagation();
-        })
+    //     showCouponBtn.on("click", function(event2) {
+    //         event2.preventDefault();
+    //         couponForm.slideToggle();
+    //         event2.stopPropagation();
+    //     })
 
-        shipDifferentAddressBtn.on("click", function(event3) {
-            shippingAddress.slideToggle();
-            event3.stopPropagation();
-        })
-    }
+    //     shipDifferentAddressBtn.on("click", function(event3) {
+    //         shippingAddress.slideToggle();
+    //         event3.stopPropagation();
+    //     })
+    // }
 
 
 
