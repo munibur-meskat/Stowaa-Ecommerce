@@ -424,8 +424,6 @@ data-responsive-width="992px">
             'mini': '' }"></app-settings>
 </div>
 
-@include('message');
-
 <!-- jQuery -->
 <script src="{{ asset('backend/js/jquery.min.js')}}"></script>
 

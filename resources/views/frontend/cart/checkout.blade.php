@@ -60,7 +60,7 @@
                               </p>
                               <p class="form-row form-row form-row-last address-field validate-required validate-postcode" id="postcode_field">
                                  <label for="postcode" class="">ZIP <abbr class="required" title="required">*</abbr></label>
-                                 <input type="text" class="input-text " name="postcode" id="postcode" placeholder="" autocomplete="postal-code" value="{{ auth()->user()->user_info->zip ?? '' }}" />
+                                 <input type="text" class="input-text " name="postcode" id="postcode" placeholder="" autocomplete="postal-code" value="{{ auth()->user()->user_info->zip ?? '' }}" >
                                  
                               </p>
                               
