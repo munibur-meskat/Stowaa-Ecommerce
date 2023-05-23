@@ -30,7 +30,7 @@
                         <tr style="background-color: #770bb9">
                             <th class="text-center" style="color: #fff; font-weight:900">Product</th>
                             <th class="text-center" style="width: 200px; color: #fff; font-weight:900">Color & Size</th>
-                            <th class="text-center" style="color: #fff; font-weight:900">Price</th>
+                            <th class="text-center" style="color: #fff; font-weight:900; width:150px">Price</th>
                             <th class="text-center" style="color: #fff; font-weight:900">Quantity</th>
                             <th class="text-center" style="color: #fff; font-weight:900">Stock</th>
                             <th class="text-center" style="color: #fff; font-weight:900">Total</th>
@@ -141,7 +141,7 @@
                         </h3>
                         <form action="#">
                             <div class="select_option clearfix">
-                                <select class="form-control niceSelect nice-select select_shipping" >
+                                <select class="form-control niceSelect nice-select select_shipping">
                                     {{-- style="display: none;" --}}
                                     <option data-display="Select Your Currency">Select Your Option</option>
                                     
@@ -150,34 +150,7 @@
                                             @endforeach
 
                                 </select>
-                               
-                                {{-- <div class="nice-select ">
-                                    <input type="hidden" class="">
-                                    <span class="current">Select Your Currency</span>
-                                    <ul class="list select_shipping">
-                                        <li data-value="Select Your Option" data-display="Select Your Currency" class="option selected focus">Select Your Option</li>
-                                        @foreach ($shipping_conditions as $shipping_condition)
-                                        
-                                        <li data-value="{{ $shipping_condition->id }}" class="option">{{ $shipping_condition->location }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div> --}}
-                                
                             </div>
-
-                            <div class="row">
-                                <div class="col col-md-6">
-                                    <div class="form_item">
-                                        <input type="text" name="location" placeholder="State / Country">
-                                    </div>
-                                </div>
-                                <div class="col col-md-6">
-                                    <div class="form_item">
-                                        <input type="text" name="postalcode" placeholder="Postcode / ZIP">
-                                    </div>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn_primary rounded-pill">Update Total</button>
                         </form>
                     </div>
                 </div>
@@ -313,13 +286,13 @@
         });
     });
 
+    //Select shipping
+
     $('.select_shipping').on('change', function(){
 
         var shipping_id = $('.select_shipping').val();
 
         // console.log(shipping_id);
-
-        // var shipping_id = shipping_id.val();
         
         // alert(shipping_id);
 
@@ -351,7 +324,7 @@
         });
 
     })
-
+    
     });
 </script>
 @endsection

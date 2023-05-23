@@ -201,8 +201,9 @@
     obj.cus_email = $('#email').val();
     obj.cus_addr1 = $('#address').val();
     obj.amount = $('#total_amount').val();
+    obj.amount = $('#total_amount').val();
 
-    $('#sslczPayBtn').prop('postdata', obj);
+    $('#sslczPayBtn').prop('postdata', obj); 
 
     (function (window, document) {
         var loader = function () {

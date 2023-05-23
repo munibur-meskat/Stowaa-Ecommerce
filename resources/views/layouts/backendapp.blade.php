@@ -455,6 +455,7 @@ data-responsive-width="992px">
 
 
 @include('flash-message')
+
 @yield('footer-js')
 
 <script>

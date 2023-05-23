@@ -14,4 +14,6 @@ class ShippingAddress extends Model{
      * @var array
      */
     protected $guarded = ['id'];
+
+    
 }

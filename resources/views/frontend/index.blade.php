@@ -1246,6 +1246,6 @@
         </div>
     </div>
 </section>
-            <!-- viewed_products_section - end
-            ================================================== -->
+            <!-- viewed_products_section - end -->
+            
 @endsection

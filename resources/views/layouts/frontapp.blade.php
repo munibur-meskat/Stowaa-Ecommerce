@@ -193,12 +193,8 @@
                 <i class="fal fa-times"></i>
             </button>
             <ul class="main_menu_list ul_li">
-                <li class="dropdown">
-                    <a class="nav-link" href="#" id="shop_submenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">Home</a>
-                    <ul class="submenu dropdown-menu" aria-labelledby="shop_submenu">
-                        <li><a href="#">Home default</a></li>
-                        <li><a href="#">Home style 2</a></li>
-                    </ul>
+                <li class="">
+                    <a class="nav-link" href="{{ route('frontend.home') }}" >Home</a>
                 </li>
                 <li>
                     <a class="nav-link" href="{{ route('frontend.shop.allproduct') }}">Shop</a>
@@ -282,6 +278,7 @@
 <div class="sidebar-menu-wrapper">
     <div class="cart_sidebar">
         <button type="button" class="close_btn"><i class="fal fa-times"></i></button>
+
         <ul class="cart_items_list ul_li_block mb_30 clearfix">
             <li>
                 <div class="item_image">
@@ -303,17 +300,9 @@
                 </div>
                 <button type="button" class="remove_btn"><i class="fal fa-trash-alt"></i></button>
             </li>
-            <li>
-                <div class="item_image">
-                    <img src="{{ asset('frontend/images/cart/cart_img_3.jpg') }}" alt="image_not_found">
-                </div>
-                <div class="item_content">
-                    <h4 class="item_title">Yellow Blouse</h4>
-                    <span class="item_price">$30.00</span>
-                </div>
-                <button type="button" class="remove_btn"><i class="fal fa-trash-alt"></i></button>
-            </li>
+           
         </ul>
+        
 
         <ul class="total_price ul_li_block mb_30 clearfix">
             <li>
@@ -632,6 +621,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
     
     @include('flash-message')
+    
     @yield('js')
 
     <script>

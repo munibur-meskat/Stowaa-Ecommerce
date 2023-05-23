@@ -141,15 +141,16 @@
                                  <td><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>{{ $carts->sum('cart_total') }}</span>
                                  </td>
                               </tr>
-                              @if (Session::has('shipping_charge'))
-                              <tr class="shipping">
-                                 <th>Shipping</th>
-                                 <td data-title="Shipping">
-                                    +
-                                    {{ Session::get('shipping_charge') > 0 ? Session::get('shipping_charge') : 'Free Shipping' }}
-                                 </td>
-                              </tr>
-                              @endif
+                              
+                                 @if (Session::has('shipping_charge'))
+                                 <tr class="shipping">
+                                    <th>Shipping</th>
+                                    <td data-title="Shipping">
+                                       +
+                                       {{ Session::get('shipping_charge') > 0 ? Session::get('shipping_charge') : 'Free Shipping' }}
+                                    </td>
+                                 </tr>
+                                 @endif
 
                               @if (Session::has('coupon'))
                               <tr class="shipping">
@@ -161,19 +162,18 @@
                                  </td>
                               </tr>
                               @endif
+
                               <tr class="order-total">
                                  <th>Total</th>
-                                 <td>
+                                <td>
                                     <strong>
                                        <span class="woocommerce-Price-amount amount">
                                           <span class="woocommerce-Price-currencySymbol">$</span>
-                                          @if (Session::get('shipping_charge') && Session::get('coupon')['amount'])
-                                          
+                                          @if (Session::has('shipping_charge') && Session::has('coupon'))
                                           {{ $carts->sum('cart_total') + Session::get('shipping_charge') - Session::get('coupon')['amount'] }}
                                           @else
                                           {{ $carts->sum('cart_total') + Session::get('shipping_charge') }}
                                           @endif
-
                                     </span>
                                     </strong> 
                                  </td>
@@ -193,19 +193,6 @@
                                     <p>Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</p>
                                  </div>
                               </li>
-
-                              {{-- <li class="wc_payment_method payment_method_paypal">
-                                 <input id="payment_method_paypal" type="radio" class="input-radio" name="payment_method" value="paypal" data-order_button_text="Proceed to PayPal" />
-                                 <!--grop add span for radio button style-->
-                                 <span class='grop-woo-radio-style'></span>
-                                 <!--custom change-->
-                                 <label for="payment_method_paypal">
-                                 PayPal <img src="{{ asset('frontend/images/paypal.png') }}" alt="PayPal Acceptance Mark" /><a href="#" class="about_paypal" title="What is PayPal?">What is PayPal?</a> </label>
-                                 <div class="payment_box payment_method_paypal" style="display:none;">
-                                    <p>Pay via PayPal; you can pay with your credit card if you don&#8217;t have a PayPal account.</p>
-                                 </div>
-                              </li> --}}
-
                            </ul>
                            <div class="form-row place-order">
 

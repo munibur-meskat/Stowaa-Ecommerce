@@ -133,48 +133,58 @@ class CartController extends Controller
         $coupon = Coupon::where('name', $request->coupon)->first();
         $cart_total = Cart::where('user_id', auth()->user()->id)->sum('cart_total');
 
-        if($coupon->start_date < now()){
+        if($request->coupon == null){
+            $request->session()->forget('coupon');
+            return back();
+        }else{
+            if($coupon->start_date < now()){
 
-            if( $cart_total > $coupon->applicable_amount){
-
-                if($coupon->end_date > now()){
-                    $couponApply = [
-                        'name' => $coupon->name,
-                        'amount' => $coupon->amount,
-                    ];
-
-                    Session::put('coupon', $couponApply);
-                    return back();
-
+                if( $cart_total > $coupon->applicable_amount){
+    
+                    if($coupon->end_date > now()){
+                        $couponApply = [
+                            'name' => $coupon->name,
+                            'amount' => $coupon->amount,
+                        ];
+    
+                        Session::put('coupon', $couponApply);
+                        return back();
+    
+                    } else{
+                        return back()->with('error', 'Date Expaire!');
+                    }
                 } else{
-                    return back()->with('error', 'Date Expaire!');
+                    return back()->with('error', 'Cart Amount Low!');
                 }
             } else{
-                return back()->with('error', 'Cart Amount Low!');
+                return back()->with('error', 'Invalid Coupon!');
             }
-        } else{
-            return back()->with('error', 'Invalid Coupon!');
         }
 
         // return back()->with('warning', 'Cart Delete Successfull!');
     }
 
-    public function  shippingApply(Request $request)
-    {
-        $data = ShippingCondition::where('id', $request->shipping_id)->first();
+    public function  shippingApply(Request $request) {
+        
+            $data = ShippingCondition::where('id', $request->shipping_id)->first();
 
-        $cart_total = Cart::where('user_id', auth()->user()->id)->sum('cart_total');
-        $grand_total = ($cart_total - (Session::get('coupon')['amount'] ?? 0)) + $data->shipping_amount;
-
-        $data_shipping = [
-            'shipping_amount' => $data->shipping_amount,
-            'grand_total' => $grand_total,
-        ];
-        Session::put('shipping_charge', $data->shipping_amount);
-        return response()->json($data_shipping);
+            $cart_total = Cart::where('user_id', auth()->user()->id)->sum('cart_total');
+            $grand_total = ($cart_total - (Session::get('coupon')['amount'] ?? 0)) + $data->shipping_amount;
+    
+            $data_shipping = [
+                'shipping_amount' => $data->shipping_amount,
+                'grand_total' => $grand_total,
+            ];
+            Session::put('shipping_charge', $data->shipping_amount);
+            return response()->json($data_shipping);
     }
 
-    public function checkoutOrder() {
+    public function checkoutOrder(Request $request) {
+
+        // if($request->shipping_charge == null){
+        //         $request->session()->forget('shipping_charge');
+        //     }
+
         $carts = Cart::with('inventories')->where('user_id', auth()->user()->id)->get();
         return view('frontend.cart.checkout', compact('carts'));
     }

@@ -9,8 +9,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Inventory;
 
-class ShopController extends Controller
-{
+class ShopController extends Controller {
+    
     public function allProducts(){
         $products = Product::select('id','title','slug','discount','price','shot_description','sale_price','image')->orderBy('created_at', 'DESC')->paginate(9);
         
@@ -18,7 +18,7 @@ class ShopController extends Controller
         return view('frontend.shop', compact('products'));
     }
 
-    public function singleProduct($slug){
+    public function singleProduct($slug) {
 
         // $product = Product::where('slug', $slug)->with(['inventories' => function($q){
         //     $q->with('colors');

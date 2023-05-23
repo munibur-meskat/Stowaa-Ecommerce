@@ -35,6 +35,7 @@ use App\Http\Controllers\Backend\ShippingConditionController;
 */ 
 
 //Front-End route
+
     Route::controller(FrontendController::class)->name('frontend.')->group(function () {
     Route::get('/', 'index')->name('home');
     Route::get('/user/login-signup', 'userlogin')->name('userlogin');
@@ -51,15 +52,15 @@ use App\Http\Controllers\Backend\ShippingConditionController;
 
     Route::controller(CartController::class)->middleware(['auth', 'verified'])->name('frontend.cart.')->group(function () {
 
-        Route::get('cart', 'index')->name('index');
-        Route::post('cart/store', 'store')->name('store');
-        Route::delete('cart/destroy/{cart}', 'destroy')->name('destroy');
-        Route::post('cart/update', 'update')->name('update');
+    Route::get('cart', 'index')->name('index');
+    Route::post('cart/store', 'store')->name('store');
+    Route::delete('cart/destroy/{cart}', 'destroy')->name('destroy');
+    Route::post('cart/update', 'update')->name('update');
 
-        Route::post('cart/coupon/apply', 'couponApply')->name('coupon.apply');
-        Route::post('cart/apply/shipping', 'shippingApply')->name('shipping.apply');
+    Route::post('cart/coupon/apply', 'couponApply')->name('coupon.apply');
+    Route::post('cart/apply/shipping', 'shippingApply')->name('shipping.apply');
 
-        Route::get('checkout', 'checkoutOrder')->name('checkout.order');
+    Route::get('checkout', 'checkoutOrder')->name('checkout.order');
     });
 
 //Back-End route
@@ -208,6 +209,7 @@ Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
 Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
 
 Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
+
 //SSLCOMMERZ END
 
 
