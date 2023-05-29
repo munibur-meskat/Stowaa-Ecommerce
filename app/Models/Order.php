@@ -16,6 +16,11 @@ class Order extends Model{
      */
     protected $guarded = ['id'];
 
+    public function invoices(){
+      return $this->hasOne(Invoice::class, 'invoice_id');
+      
+    }
+
     // public function orderinventories(){
     //   return $this->hasMany(InventoryOrder::class);
     // }
