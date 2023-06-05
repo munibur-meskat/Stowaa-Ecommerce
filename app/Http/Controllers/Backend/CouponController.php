@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Http\Controllers\Backend\convert_to_sql_date_format;
 use App\Http\Controllers\Controller;
 use App\Models\Coupon;
 use Illuminate\Http\Request;
 
-class CouponController extends Controller
-{
+class CouponController extends Controller {
     /**
      * Display a listing of the resource.
      *
@@ -63,9 +63,9 @@ class CouponController extends Controller
      * @param  \App\Models\Coupon  $coupon
      * @return \Illuminate\Http\Response
      */
-    public function edit(Coupon $coupon)
-    {
-        //
+    public function edit($id) {
+        $coupon = Coupon::findOrFail($id);
+        return view('backend.coupon.edit', compact('coupon'));
     }
 
     /**
@@ -75,10 +75,28 @@ class CouponController extends Controller
      * @param  \App\Models\Coupon  $coupon
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Coupon $coupon)
-    {
-        //
+    public function update(Request $request, $id) {
+        $request->validate([
+            'name' => 'required',
+            'amount' => 'required',
+            'applicable_amount' => 'required',
+            'start_date' => 'nullable',
+            'end_date' => 'nullable'
+        ]);
+
+        $coupon = Coupon::findOrFail($id);
+        $coupon->name = $request->name;
+        $coupon->amount = $request->amount;
+        $coupon->applicable_amount = $request->applicable_amount;
+
+        // $coupon->start_date= $request->start_date;
+        $coupon->end_date= $request->end_date;
+
+        $coupon->save();
+        
+        return redirect()->route('dashboard.coupon.index')->with('success', 'Coupon Update Successfull!');
     }
+
 
     /**
      * Remove the specified resource from storage.

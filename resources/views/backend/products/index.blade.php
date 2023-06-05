@@ -56,8 +56,10 @@
                             <a href="#"><button type="button" class="btn btn-primary m-1" style="font-size: 12px;border: none;padding: 5px 10px;text-align: center;text-decoration: none;display: inline-block;margin: 4px 2px;cursor: pointer;">view</button></a>
 
                             <form action="{{ route('dashboard.product.destroy', $product->id) }}" method="POST" class="d-inline">
-                                @method('DELETE')
-                                @csrf
+                                
+                                {{-- @method('DELETE')
+                                @csrf --}}
+
                                 <button type="submit" class="btn btn-danger" style="font-size: 12px;border: none;padding: 5px 10px;text-align: center;text-decoration: none;display: inline-block;margin: 4px 2px;cursor: pointer;">delete</button>
                             </form>
                         </td>

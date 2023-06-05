@@ -15,8 +15,7 @@ class ColorFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition()
-    {
+    public function definition() {
         return [
             'name' => fake()->colorName(),
             'slug' => Str::slug(fake()->colorName()),

@@ -22,7 +22,7 @@ class RolesAndPermissionsSeeder extends Seeder
             'user_name' => "superadmin",
             'email' => "munibur@gmail.com",
             'email_verified_at' => now(),
-            'password' => Hash::make('12345'),
+            'password' => Hash::make('123'),
             'remember_token' => Str::random(10),
         ]);
 

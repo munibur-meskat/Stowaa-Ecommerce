@@ -36,7 +36,14 @@
                             <td>{{ $shipping_condition->location }}</td>
                             <td>{{ $shipping_condition->shipping_amount }}</td>
                             <td>
-                                <a href="#"><button type="button" class="btn btn-primary">edit</button></a>
+                                <a href="#"><button type="button" class="btn btn-primary" style="font-size: 12px;border: none;padding: 5px 10px;text-align: center;text-decoration: none;display: inline-block;margin: 4px 2px;cursor: pointer;">edit</button></a>
+
+                                {{-- <form action="{{ route('dashboard.shipping.condition.destroy', $shipping_condition->id) }}" method="POST" class="d-inline">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger" style="font-size: 12px;border: none;padding: 5px 10px;text-align: center;text-decoration: none;display: inline-block;margin: 4px 2px;cursor: pointer;">delete</button>
+                                </form> --}}
+
                             </td>
                            </tr>
                         @endforeach
@@ -78,7 +85,7 @@
                 @enderror
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-success">Submit</button>
                 </div>
             </form>
             </div>

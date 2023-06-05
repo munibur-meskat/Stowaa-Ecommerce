@@ -39,10 +39,10 @@
                             <td>{{ $coupon->name }}</td>
                             <td>{{ $coupon->amount }}</td>
                             <td>{{ $coupon->applicable_amount }}</td>
-                            <td>{{ $coupon->start_date->isoFormat('d-MMM-YYYY') }}</td>
-                            <td>{{ $coupon->end_date->isoFormat('d-MMM-YYYY') }}</td>
+                            <td>{{ $coupon->start_date->format('d-m-Y') }}</td>
+                            <td>{{ $coupon->end_date->format('d-m-Y') }}</td>
                             <td>
-                                <a href="#"><button type="button" class="btn btn-primary">edit</button></a>
+                                <a href="{{ route('dashboard.coupon.edit', $coupon->id) }}"><button type="button" class="btn btn-primary">edit</button></a>
                             </td>
                            </tr>
                         @endforeach
@@ -50,7 +50,6 @@
             </table>
         </div>
     </div>
-    {{-- {{ $categories->links() }} --}}
 </div>
 
 <div class="col-lg-3 col-sm-5">
@@ -89,13 +88,14 @@
                 </div>
 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-success">Submit</button>
                 </div>
             </form>
             </div>
         </div>
        
     </div>
+    
 </div>
 </section>
 

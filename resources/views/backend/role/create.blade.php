@@ -25,7 +25,7 @@
                     <form action="{{ route('dashboard.role.permission.insert') }}" method="POST">
                         @csrf
                         <div class="form-group">
-                            <label for="role">Permission Name:</label>
+                            <label for="role" style="font-weight: 800">Permission Name:</label>
                             <input type="text" name="name" class="form-control" id="role" placeholder="Permission Name">
                         </div>
 
@@ -47,14 +47,14 @@
                     <form action="{{ route('dashboard.role.insert') }}" method="POST">
                         @csrf
                         <div class="form-group">
-                            <label for="role">Role Name:</label>
+                            <label for="role" style="font-weight: 800">Role Name:</label>
                             <input type="text" name="name" class="form-control" id="role" placeholder="Role Name">
                         </div>
-                        <div class="my-3">Set Permission:</div>
-                        <div class="row mb-3">
+                        <div class="my-3" style="font-weight: 800">Set Permission:</div>
+                        <div class="row mb-3" >
                             @foreach ($permissions as $permission)
-                        <div class="col-lg-2 col-sm-4 col-2">
-                            <label><input class="m-1" type="checkbox" value="{{ $permission->id }}" name="permissions[]">{{ $permission->name }}</label>
+                        <div class="col-lg-2 col-sm-4 col-2 py-2">
+                            <label style="font-size: 17px;"><input class="m-2" type="checkbox" value="{{ $permission->id }}" name="permissions[]">{{ $permission->name }}</label>
                         </div>
                         @endforeach
                         </div>

@@ -27,14 +27,16 @@ class InventoryController extends Controller
     //     return view('backend.inventory.index', compact('product','colors'));
     // }
 
-    public function index($product_id)
-    {
+    public function index($product_id) {
+
         $product = Product::findOrfail($product_id);
+
         $colors = Color::all();
         // $inventories = Inventory::where('product_id', $product_id)->get();
 
         return view('backend.inventory.index', compact('product','colors'));
-        // ,'inventories'
+
+        // compact('inventories')
     }
    
     
@@ -61,7 +63,7 @@ class InventoryController extends Controller
     // }
 
 
-    public function selectSize(Request $request){
+    public function selectSize(Request $request) {
 
         $inventories = Inventory::where('product_id', $request->product_id)->where('color_id', $request->color_id)->get();
 
@@ -84,8 +86,7 @@ class InventoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $request->validate([
             'title' => 'required',
             'product_id' => 'required|integer',
@@ -107,25 +108,16 @@ class InventoryController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Inventory  $inventory
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Inventory $inventory)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Inventory  $inventory
      * @return \Illuminate\Http\Response
      */
-    public function edit(Inventory $inventory)
-    {
-        //
+    public function edit( $id) {
+        $product = Product::findOrFail($id);
+
+        $inventory = Inventory::findOrFail($id);
+        return view('backend.inventory.edit', compact('inventory', 'product'));
     }
 
     /**
@@ -135,9 +127,24 @@ class InventoryController extends Controller
      * @param  \App\Models\Inventory  $inventory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Inventory $inventory)
-    {
-        //
+    public function update(Request $request, $id) {
+
+        $inventory = Inventory::findOrFail($id);
+
+        $request->validate([
+            'title' => 'nullable',
+            'quantity' => 'required',
+            'additional_price' => 'nullable|integer',
+        ]);
+
+        $inventory->products->title = $request->title;
+
+        $inventory->quantity = $request->quantity;
+        $inventory->additional_price = $request->additional_price;
+        $inventory->save();
+
+        return redirect()->route('dashboard.inventory.index', $inventory->products->id)->with('success', 'Inventory Updated Successfull!');
+
     }
 
     /**

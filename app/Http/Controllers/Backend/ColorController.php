@@ -74,6 +74,6 @@ class ColorController extends Controller
     {
         $color = Color::find($id);
         $color->delete();
-        return back()->with('danger', "Colour Delete Successfull!");
+        return back()->with('warning', "Colour Delete Successfull!");
     }
 }

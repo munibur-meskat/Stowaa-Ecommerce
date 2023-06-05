@@ -38,13 +38,17 @@
                         <td class="">
                             <a href="#"><button type="button" class="btn btn-primary" style="font-size: 12px;border: none;padding: 5px 10px;text-align: center;text-decoration: none;display: inline-block;margin: 4px 2px;cursor: pointer;">view</button></a>
                             @can('can delete size')
-                            <a href="#"> <button type="button" class="btn btn-danger" style="font-size: 12px;border: none;padding: 5px 10px;text-align: center;text-decoration: none;display: inline-block;margin: 4px 2px;cursor: pointer;">delete</button></a>
+                            <form action="{{ route('dashboard.size.delete', $size->id) }}" method="POST" class="d-inline">
+                                @method('DELETE')
+                                @csrf
+                                <button type="submit" class="btn btn-danger" style="font-size: 12px;border: none;padding: 5px 10px;text-align: center;text-decoration: none;display: inline-block;margin: 4px 2px;cursor: pointer;">delete</button>
+                            </form>
                             @endcan
                         </td>
                     </tr> 
                 @empty
                     <tr>
-                        <td colspan="6"><p>{{ __("NO Colour Found!") }}</p></td>
+                        <td colspan="6"><p>{{ __("NO Size Found!") }}</p></td>
                     </tr>
                 @endforelse
             </table>
@@ -55,6 +59,7 @@
 </div>
 
 <div class="col-lg-3 col-sm-5">
+
 @can('create category')
 <div class="card">
     @if ($errors->any())
@@ -81,6 +86,7 @@
     </div>
 </div>
     @endcan
+    
 </div>
 </div>
 </section>

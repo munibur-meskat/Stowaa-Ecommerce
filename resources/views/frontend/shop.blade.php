@@ -287,10 +287,13 @@
                 </div>
             </div>
         </div>
-                @empty
-                    <p> No Products found.</p>
-                @endforelse
-      
+            @empty
+
+            <div class="alert alert-info text-center" role="alert" style="font-size: 20px; font-weight:800">
+                No Products found !
+              </div>
+
+            @endforelse
     </div>
 </div>
 <div class="row">
@@ -299,10 +302,18 @@
     <div class="pagination_wrap">
         {{ $products->links() }}
 
-        {{-- <ul class="pagination_nav">
-            <li class="active"><a href="#">{{ $products->links() }}</a></li>
+        {{-- <nav aria-label="...">
+            <ul class="pagination pagination-lg">
+              <li class="page-item active" aria-current="page">
+                <span class="page-link">1</span>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+            </ul>
+          </nav> --}}
 
-            <li class="active"><a href="#!">01</a></li>
+        <ul class="pagination_nav pagination_wrap">
+            <li class="active"><a href=" {{ $products->links() }} ">01</a></li>
             <li><a href="#!">02</a></li>
             <li><a href="#!">03</a></li>
 
@@ -312,7 +323,7 @@
             <li class="next_btn">
                 <a href="#!"><i class="fal fa-angle-right"></i></a>
             </li>
-        </ul> --}}
+        </ul>
 
     </div>
 </div>

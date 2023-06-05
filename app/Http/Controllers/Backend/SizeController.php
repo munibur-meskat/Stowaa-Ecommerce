@@ -70,8 +70,10 @@ class SizeController extends Controller
      * @param  \App\Models\Size  $size
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Size $size)
+    public function destroy($id)
     {
-        //
+        $size = Size::find($id);
+        $size->delete();
+        return back()->with('warning', "Size Delete Successfull!");
     }
 }

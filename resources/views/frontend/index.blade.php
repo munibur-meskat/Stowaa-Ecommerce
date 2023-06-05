@@ -2,8 +2,7 @@
 @section('title', "Frontend")
 
 @section('content')
-        <!-- slider_section - start
-    ================================================== -->
+        <!-- slider_section - start -->
 <section class="slider_section">
     <div class="container">
         <div class="row">
@@ -132,6 +131,7 @@
                         <div class="view-all"><a href="#">View all<i class="fal fa-long-arrow-right"></i></a></div>
                     </div>
                     <div class="product-area clearfix">
+                        
                         <div class="grid">
                             <div class="product-pic">
                                 <img src="{{ asset('frontend/images/shop/product_img_12.png')}}" alt="img not found" >
@@ -173,6 +173,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="grid">
                             <div class="product-pic">
                                 <img src="{{ asset('frontend/images/shop/product-img-21.png')}}" alt="img not found" >
@@ -215,6 +216,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="grid">
                             <div class="product-pic">
                                 <img src="{{ asset('frontend/images/shop/product-img-22.png')}}" alt>
@@ -264,6 +266,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="grid">
                             <div class="product-pic">
                                 <img src="{{ asset('frontend/images/shop/product-img-23.png')}}" alt>
@@ -306,6 +309,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="grid">
                             <div class="product-pic">
                                 <img src="{{ asset('frontend/images/shop/product-img-24.png')}}" alt>
@@ -356,6 +360,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="grid">
                             <div class="product-pic">
                                 <img src="{{ asset('frontend/images/shop/product-img-25.png')}}" alt>
@@ -397,6 +402,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
                 
@@ -891,6 +897,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="grid">
                         <div class="product-pic">
                             <img src="{{asset('frontend/images/shop/product-img-27.png') }}" alt>
@@ -933,6 +940,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="grid">
                         <div class="product-pic">
                             <img src="{{asset('frontend/images/shop/product_img_12.png') }}" alt>
@@ -975,6 +983,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>

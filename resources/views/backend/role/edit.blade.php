@@ -26,7 +26,7 @@
                     @csrf
                     <div class="form-group">
                         <label for="role">Role Name:</label>
-                        <input type="text" name="name" class="form-control" id="role" value="{{ $role->name }}" placeholder="Role Name">
+                        <input type="text" name="name" class="form-control" id="role" value="{{ $role->name }}">
                     </div>
                     <div class="my-3">Set Permission:</div>
                     <div class="row mb-4">

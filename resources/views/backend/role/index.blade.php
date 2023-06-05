@@ -42,11 +42,13 @@
                             </td>
                             <td style="text-align:center" class="#">
                                 @can('role edit')
-                                <a href="{{ route('dashboard.role.edit', $role->id) }}" class="badge bg-primary text-white" style="font-size:12px">Edit</a>
+
+                                <a href="{{ route('dashboard.role.edit', $role->id) }}"><button type="button" class="btn btn-primary" style="font-size: 12px;border: none;padding: 5px 10px;text-align: center;text-decoration: none;display: inline-block;margin: 4px 2px;cursor: pointer;">Edit</button></a>
                                 @endcan
                                 
                                 @can('role delete')
-                                <a href="#" class="badge bg-danger text-white " style="font-size:12px">Delete</a>
+
+                                <a href="#"><button type="button" class="btn btn-danger" style="font-size: 12px;border: none;padding: 5px 10px;text-align: center;text-decoration: none;display: inline-block;margin: 4px 2px;cursor: pointer;">Delete</button></a>
                                 @endcan
                                 
                             </td>

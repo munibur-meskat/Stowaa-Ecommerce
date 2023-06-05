@@ -81,7 +81,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $user->delete();
-        return back()->with('danger', "User Delete Successfull!");
+        return back()->with('warning', "User Delete Successfull!");
     }
 
 

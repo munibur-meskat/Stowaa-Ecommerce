@@ -16,6 +16,10 @@ class Inventory extends Model{
      */
     protected $guarded = ['id'];
 
+        /**
+     * @var string[]
+     */
+
     function products(){
         return $this->belongsTo(Product::class,'product_id');
     }

@@ -22,6 +22,7 @@ use App\Http\Controllers\Backend\UserProfileController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\Backend\RolePermissionController;
 use App\Http\Controllers\Backend\ShippingConditionController;
+use App\Http\Controllers\PdfController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,12 +35,14 @@ use App\Http\Controllers\Backend\ShippingConditionController;
 |
 */ 
 
-//Front-End route
+   //Front-End route
 
     Route::controller(FrontendController::class)->name('frontend.')->group(function () {
     Route::get('/', 'index')->name('home');
     Route::get('/user/login-signup', 'userlogin')->name('userlogin');
     });
+
+    //shop route
 
     Route::controller(ShopController::class)->name('frontend.shop.')->group(function () {
     Route::get('/shop', 'allProducts')->name('allproduct');
@@ -49,6 +52,8 @@ use App\Http\Controllers\Backend\ShippingConditionController;
     Route::post('/product/single/options', 'singleProductOptions')->name('single.options');
 
     });
+
+    //cart route
 
     Route::controller(CartController::class)->middleware(['auth', 'verified'])->name('frontend.cart.')->group(function () {
 
@@ -63,8 +68,12 @@ use App\Http\Controllers\Backend\ShippingConditionController;
     Route::get('checkout', 'checkoutOrder')->name('checkout.order');
     });
 
-//Back-End route
-//Auth route
+    Route::get('/generate-pdf',[PdfController::class, 'generate_pdf']);
+    Route::get('/download-pdf',[PdfController::class, 'download_pdf']);
+
+   //Back-End route
+
+   //Auth route
 
     Route::get('/email/verify', function () {
         return view('auth.verify-email');
@@ -105,6 +114,7 @@ use App\Http\Controllers\Backend\ShippingConditionController;
     Route::controller(SizeController::class)->prefix('size')->name('size.')->group(function () {
     Route::get('/', 'index')->middleware(['role_or_permission:super-admin|admin|can see size'])->name('index');
     Route::post('/store', 'store')->name('store');
+    Route::delete('/delete/{id}', 'destroy')->name('delete');
     });
 
     //Product routes
@@ -126,12 +136,14 @@ use App\Http\Controllers\Backend\ShippingConditionController;
 
     //Inventory routes
 
-    Route::controller(InventoryController::class)->prefix('product')->name('inventory.')->group(function () {
+    Route::controller(InventoryController::class)->prefix('product/inventory')->name('inventory.')->group(function () {
 
-    Route::get('/inventory/{id}', 'index')->middleware(['role_or_permission:super-admin|admin'])->name('index');
-    Route::post('/inventory', 'store')->middleware(['role_or_permission:super-admin|admin'])->name('store');
+    Route::get('/{product_id}', 'index')->middleware(['role_or_permission:super-admin|admin'])->name('index');
+    Route::post('/store', 'store')->middleware(['role_or_permission:super-admin|admin'])->name('store');
+    Route::get('/edit/{id}', 'edit')->middleware(['role_or_permission:super-admin|admin'])->name('edit');
+    Route::put('/update/{id}', 'update')->middleware(['role_or_permission:super-admin|admin'])->name('update');
     
-    Route::post('/inventory/size', 'selectSize')->middleware(['role_or_permission:super-admin|admin'])->name('select.size');
+    Route::post('/size', 'selectSize')->middleware(['role_or_permission:super-admin|admin'])->name('select.size');
     });
     
     // role & permission route
@@ -158,7 +170,7 @@ use App\Http\Controllers\Backend\ShippingConditionController;
     Route::get('/', 'index')->name('index');
     Route::get('/create', 'create')->name('create');
     Route::post('store/','store')->name('store');
-    Route::get('/edit','edit')->name('edit');
+    Route::get('/edit/','edit')->name('edit');
     Route::put('/update','update')->name('update');
     Route::delete('/delete/{id}','destroy')->name('delete');
     });
@@ -175,6 +187,8 @@ use App\Http\Controllers\Backend\ShippingConditionController;
 
 });
 
+    //coupon route
+
     Route::controller(CouponController::class)->prefix('coupon')->name('coupon.')->group(function () {
     Route::get('/', 'index')->name('index');
     Route::post('/', 'store')->name('store');
@@ -185,18 +199,22 @@ use App\Http\Controllers\Backend\ShippingConditionController;
     Route::delete('/permanent/delete/{id}', 'permanentDestroy')->name('permanent.destroy');
     });
 
+    //shipping route
+
     Route::controller(ShippingConditionController::class)->prefix('shipping/condition')->name('shipping.condition.')->group(function () {
     Route::get('/', 'index')->name('index');
     Route::post('/', 'store')->name('store');
     Route::get('/edit/{shippingcondition}', 'edit')->name('edit');
     Route::put('/update/{shippingcondition}', 'update')->name('update');
+    Route::delete('/delete/{id}', 'destroy')->name('destroy');
 
-    // Route::delete('/delete/{id}', 'destroy')->name('destroy');
     // Route::get('/restore/{id}', 'restore')->name('restore');
     // Route::delete('/permanent/delete/{id}', 'permanentDestroy')->name('permanent.destroy');
     });
 
 });
+
+//Back-End route end
 
 // SSLCOMMERZ Start
 

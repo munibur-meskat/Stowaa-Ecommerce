@@ -15,8 +15,7 @@ class ProductFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition()
-    {
+    public function definition() {
         return [
             'user_id' => fake()->numberBetween($min =1, $max =3),
             'title' => fake()->sentence(),

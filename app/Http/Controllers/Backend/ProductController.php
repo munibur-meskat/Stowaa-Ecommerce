@@ -20,6 +20,7 @@ class ProductController extends Controller
      */
     public function index(){
         $products = Product::with(['user:id,name','categories:id,name,slug'])->select('id','title','user_id','image','price','sale_price','discount')->orderBy('id', 'DESC')->paginate('15');
+
         return view('backend.products.index', compact('products'));
     }
 
@@ -40,8 +41,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $product_image = $request->image;
         $product_gallery = $request->gallery;
 
@@ -51,8 +51,8 @@ class ProductController extends Controller
             'category'=> 'required',
             'sale_price'=> 'required|integer',
             'discount'=> 'nullable|integer',
-            'image'=> 'required|image|max:500|mimes:png,jpg,jpeg',
-            'gallery.*'=> 'nullable|image|max:500|mimes:png,jpg,jpeg',
+            'image'=> 'required|image|max:1000|mimes:png,jpg,jpeg',
+            'gallery.*'=> 'required|image|max:1000|mimes:png,jpg,jpeg',
             'shot_description'=> 'required|max:300',
             'description'=> 'nullable|max:1200',
             'addtional_info'=> 'nullable|max:5000',
@@ -141,6 +141,6 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         $product->delete();
-        return back()->with('danger', "Product Delete Successfull!");
+        return back()->with('warning', "Product Delete Successfull!");
     }
 }

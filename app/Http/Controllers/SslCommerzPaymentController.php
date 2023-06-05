@@ -225,7 +225,7 @@ class SslCommerzPaymentController extends Controller {
 
                ]);
                
-               Mail::to( auth()->user()->email)->send(new InvoiceOrder( $order_details ));
+            //    Mail::to( auth()->user()->email)->send(new InvoiceOrder( $order_details ));
 
                return redirect()->route('frontend.shop.allproduct')->with('success', 'Transaction is Successfull');
 
@@ -319,7 +319,7 @@ class SslCommerzPaymentController extends Controller {
 
                foreach($orderInventories as $orderInventory){
                 Inventory::where('id', $orderInventory->inventory_id)->decrement('quantity', $orderInventory->quantity);
-                Cart::where('inventory_id', $orderInventory->inventory_id)->where('user_id', auth()->user()->id)->delete();
+                Cart::where('inventory_id', $orderInventory->inventory_id)->where('user_id', auth()->user()->id )->delete();
                }
 
                $request->session()->forget(['coupon','shipping_charge']);

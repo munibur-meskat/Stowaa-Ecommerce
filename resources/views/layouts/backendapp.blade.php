@@ -202,38 +202,46 @@ data-responsive-width="992px">
                 </a>
             </li>
 
-            <li class="sidebar-menu-item">
-                <a class="sidebar-menu-button" data-toggle="collapse" href="#pr_menu">
+            <li class="sidebar-menu-item active open">
+                <a class="sidebar-menu-button" href="{{ route('dashboard.home') }}">
                     <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">dvr</i>
+                    <span class="sidebar-menu-text">Dashboards</span>
+                </a>
+            </li>
+
+            <li class="sidebar-menu-item {{ Route::is('dashboard.product.*') || Route::is('dashboard.category.index') || Route::is('dashboard.color.index') || Route::is('dashboard.size.index') ? 'active open' : ""  }}">
+                <a class="sidebar-menu-button" data-toggle="collapse" aria-expanded="true" href="#pr_menu">
+
+                    <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">slideshow</i>
                     <span class="sidebar-menu-text">Products</span>
                     <span class="ml-auto sidebar-menu-toggle-icon"></span>
                 </a>
                 <ul class="sidebar-submenu collapse" id="pr_menu">
-                    <li class="sidebar-menu-item">
+                    <li class="sidebar-menu-item {{ Route::is('dashboard.product.index') ? 'active' : "" }}">
                         <a class="sidebar-menu-button" href="{{ route('dashboard.product.index') }}">
                             <span class="sidebar-menu-text">All Products</span>
                         </a>
                     </li>
 
-                    <li class="sidebar-menu-item">
+                    <li class="sidebar-menu-item {{ Route::is('dashboard.product.create') ? 'active' : "" }}">
                         <a class="sidebar-menu-button" href="{{ route('dashboard.product.create') }}">
                             <span class="sidebar-menu-text">Add Products</span>
                         </a>
                     </li> 
 
-                    <li class="sidebar-menu-item">
+                    <li class="sidebar-menu-item {{ Route::is('dashboard.category.index') ? 'active' : "" }}">
                         <a class="sidebar-menu-button" href="{{ route('dashboard.category.index') }}">
                             <span class="sidebar-menu-text">Category</span>
                         </a>
                     </li>
 
-                    <li class="sidebar-menu-item">
+                    <li class="sidebar-menu-item {{ Route::is('dashboard.color.index') ? 'active' : "" }}">
                         <a class="sidebar-menu-button" href="{{ route('dashboard.color.index') }}">
                             <span class="sidebar-menu-text">Colour</span>
                         </a>
                     </li>
 
-                    <li class="sidebar-menu-item">
+                    <li class="sidebar-menu-item {{ Route::is('dashboard.size.index') ? 'active' : "" }}">
                         <a class="sidebar-menu-button" href="{{ route('dashboard.size.index') }}">
                             <span class="sidebar-menu-text">Size</span>
                         </a>
@@ -288,19 +296,19 @@ data-responsive-width="992px">
             
             @role('super-admin|admin')
             @can('user show|user create')
-            <li class="sidebar-menu-item">
+            <li class="sidebar-menu-item {{ Route::is('dashboard.user.*') ? 'active open' : "" }}">
                 <a class="sidebar-menu-button" data-toggle="collapse" href="#user_menu">
                     <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">slideshow</i>
                     <span class="sidebar-menu-text">User Management</span>
                     <span class="ml-auto sidebar-menu-toggle-icon"></span>
                 </a>
                 <ul class="sidebar-submenu collapse" id="user_menu" style="">
-                    <li class="sidebar-menu-item">
+                    <li class="sidebar-menu-item {{ Route::is('dashboard.user.index') ? 'active' : "" }}">
                         <a class="sidebar-menu-button" href="{{ route('dashboard.user.index') }}">
                             <span class="sidebar-menu-text">All Users</span>
                         </a>
                     </li>
-                    <li class="sidebar-menu-item">
+                    <li class="sidebar-menu-item {{ Route::is('dashboard.user.create') ? 'active' : "" }}">
                         <a class="sidebar-menu-button" href="{{ route('dashboard.user.create') }}">
                             <span class="sidebar-menu-text">Add Users</span>
                         </a>
@@ -309,14 +317,14 @@ data-responsive-width="992px">
             </li>
             @endcan
             
-            <li class="sidebar-menu-item {{ Route::is('dashboard.coupon.*') ? 'active' : '' }}">
+            <li class="sidebar-menu-item {{ Route::is('dashboard.coupon.index') ? 'active' : '' }}">
                 <a class="sidebar-menu-button" href="{{ route('dashboard.coupon.index') }}" aria-expanded="false">
                     <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">slideshow</i>
                     <span class="sidebar-menu-text">Coupon</span>
                 </a>
             </li>
             
-            <li class="sidebar-menu-item {{ Route::is('dashboard.shipping.condition.*') ? 'active' : '' }}">
+            <li class="sidebar-menu-item {{ Route::is('dashboard.shipping.condition.index') ? 'active' : '' }}">
                 <a class="sidebar-menu-button" href="{{ route('dashboard.shipping.condition.index') }}" aria-expanded="false">
                     <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">slideshow</i>
                     <span class="sidebar-menu-text">Shipping Condition</span>
@@ -324,7 +332,7 @@ data-responsive-width="992px">
             </li>
 
             @can('role show|role create')
-            <li class="sidebar-menu-item">
+            <li class="sidebar-menu-item {{ Route::is('dashboard.role.*') ? 'active open' : "" }}">
                 <a class="sidebar-menu-button collapsed" data-toggle="collapse" href="#role_menu" aria-expanded="false">
                     <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">slideshow</i>
                     <span class="sidebar-menu-text">Role And Permission</span>
@@ -333,7 +341,7 @@ data-responsive-width="992px">
                 <ul class="sidebar-submenu collapse " id="role_menu">
 
                     @can('role show')
-                    <li class="sidebar-menu-item">
+                    <li class="sidebar-menu-item {{ Route::is('dashboard.role.index') ? 'active' : "" }}">
                         <a class="sidebar-menu-button" href="{{ route('dashboard.role.index') }}">
                             <span class="sidebar-menu-text">All Role</span>
                         </a>
@@ -341,7 +349,7 @@ data-responsive-width="992px">
                     @endcan
 
                     @can('role create')
-                    <li class="sidebar-menu-item">
+                    <li class="sidebar-menu-item {{ Route::is('dashboard.role.create') ? 'active' : "" }}">
                         <a class="sidebar-menu-button" href="{{ route('dashboard.role.create') }}">
                             <span class="sidebar-menu-text">Add Role</span>
                         </a>
@@ -452,7 +460,6 @@ data-responsive-width="992px">
 
 <!-- sweet alert js -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
-
 
 @include('flash-message')
 

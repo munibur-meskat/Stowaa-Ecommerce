@@ -46,7 +46,7 @@
                             <td>{{ $product_inv->sizes->name }}</td>
                             <td>{{ $product_inv->quantity }}</td>
                             <td>{{ $product_inv->additional_price }}</td>
-                            <td><a href="#">Edit</a></td>
+                            <td><a href="{{ route('dashboard.inventory.edit', $product_inv->id) }}" class="btn btn-primary">edit</a></td>
                         </tr>
                     @endforeach
                 </table>
@@ -68,6 +68,7 @@
         @endif
         <div class="card-body p-4">
             {{-- {{ $product->inventories }} --}}
+            
             <form action="{{ route('dashboard.inventory.store') }}" method="POST">
                 @csrf
                 <div class="form-group">
@@ -93,12 +94,12 @@
                 
                 <div class="form-group">
                     <label for="">Quantity</label>
-                    <input type="number" name="quantity" class="form-control">
+                    <input type="number" id="" name="quantity" class="form-control">
                 </div>
 
                 <div class="form-group">
                     <label for="">Additional Price</label>
-                    <input type="number" name="additional_price" class="form-control">
+                    <input id="additional_price" type="number" name="additional_price" class="form-control">
                 </div>
 
                 <div class="form-group">

@@ -91,7 +91,7 @@
                         <div class="form-group" style="height:250px; overflow-x:hidden">
                         @foreach ($categories as $category)
                             <label class="d-block">
-                                <input name="category[]" type="checkbox" value="{{ $category->id }}"> {{ $category->name }}
+                                <input type="checkbox" name="category[]" value="{{ $category->id }}"> {{ $category->name }}
                             </label>
                         @endforeach
                     </div>

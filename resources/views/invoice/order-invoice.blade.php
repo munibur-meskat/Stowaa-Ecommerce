@@ -187,17 +187,15 @@
 
 {{-- ========================= --}}
 
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Example 2</title>
-    {{-- <link rel="stylesheet" href="style.css" media="all"/> --}}
+    <title>Invoice</title>
 
     <style>
     @font-face {
     font-family: SourceSansPro;
-    /* src: url(SourceSansPro-Regular.ttf); */
   }
   
   .clearfix:after {
@@ -257,10 +255,11 @@
   
   #client .to {
     color: #777777;
+    font-size: 12px
   }
   
   h2.name {
-    font-size: 1.4em;
+    font-size: 10px;
     font-weight: normal;
     margin: 0;
   }
@@ -272,14 +271,14 @@
   
   #invoice h1 {
     color: #0087C3;
-    font-size: 2.4em;
+    font-size: 15px;
     line-height: 1em;
     font-weight: normal;
     margin: 0  0 10px 0;
   }
   
   #invoice .date {
-    font-size: 1.1em;
+    font-size: 10px;
     color: #777777;
   }
   
@@ -336,7 +335,7 @@
   table td.unit,
   table td.qty,
   table td.total {
-    font-size: 1.2em;
+    font-size: 10px;
   }
   
   table tbody tr:last-child td {
@@ -347,7 +346,7 @@
     padding: 10px 20px;
     background: #FFFFFF;
     border-bottom: none;
-    font-size: 1.2em;
+    font-size: 10px;
     white-space: nowrap; 
     border-top: 1px solid #AAAAAA; 
   }
@@ -358,7 +357,7 @@
   
   table tfoot tr:last-child td {
     color: #57B223;
-    font-size: 1.4em;
+    font-size: 10px;
     border-top: 1px solid #57B223; 
   
   }
@@ -368,7 +367,7 @@
   }
   
   #thanks{
-    font-size: 2em;
+    font-size: 15px;
     margin-bottom: 45px;
   }
   
@@ -378,7 +377,7 @@
   }
   
   #notices .notice {
-    font-size: 1.2em;
+    font-size: 12px;
   }
   
   footer {
@@ -476,4 +475,420 @@
       Invoice was created on a computer and is valid without the signature and seal.
     </footer>
   </body>
+</html> --}}
+
+{{-- ======================== --}}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> {{ __('Billing Invoice - Webjourney') }} </title>
+    {{-- <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300&display=swap" rel="stylesheet"> --}}
+</head>
+
+<body>
+
+
+    <style>
+        * {
+            font-family: 'Roboto', sans-serif;
+            line-height: 26px;
+            font-size: 15px;
+        }
+
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+/* 
+           ==============
+      [ Table ]
+    =============  */
+
+        .custom--table {
+            width: 100%;
+            color: inherit;
+            vertical-align: top;
+            font-weight: 400;
+            border-collapse: collapse;
+            border-bottom: 2px solid #ddd;
+            margin-top: 0;
+        }
+
+        .table-title {
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 32px;
+            margin-bottom: 10px;
+        }
+
+        .custom--table thead {
+            font-weight: 700;
+            background: inherit;
+            color: inherit;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .custom--table tbody {
+            border-top: 0;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .custom--table thead tr {
+            border-top: 2px solid #ddd;
+            border-bottom: 2px solid #ddd;
+            text-align: left;
+        }
+
+        .custom--table thead tr th {
+            border-top: 2px solid #ddd;
+            border-bottom: 2px solid #ddd;
+            text-align: left;
+            font-size: 16px;
+            padding: 10px 0;
+        }
+
+        .custom--table tbody tr {
+            vertical-align: top;
+        }
+
+        .custom--table tbody tr td {
+            font-size: 14px;
+            line-height: 18px vertical-align: top;
+        }
+
+        .custom--table tbody tr td:last-child {
+            padding-bottom: 10px;
+        }
+
+        .custom--table tbody tr td .data-span {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 18px;
+        }
+
+        .custom--table tbody .table_footer_row {
+            border-top: 2px solid #ddd;
+            margin-bottom: 10px !important;
+            padding-bottom: 10px !important;
+
+        }
+
+        /* invoice area */
+        .invoice-area {
+            padding: 10px 0;
+        }
+
+        .invoice-wrapper {
+            max-width: 650px;
+            margin: 0 auto;
+            box-shadow: 0 0 10px #f3f3f3;
+            padding: 0px;
+        }
+
+        .invoice-header {
+            margin-bottom: 40px;
+        }
+
+        .invoice-flex-contents {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .invoice-logo {}
+
+        .invoice-logo img {}
+
+        .invoice-header-contents {
+            float: right;
+        }
+
+        .invoice-header-contents .invoice-title {
+            font-size: 40px;
+            font-weight: 700;
+        }
+
+        .invoice-details {
+            margin-top: 20px;
+        }
+
+        .invoice-details-flex {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .invoice-details-title {
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 32px;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .invoice-single-details {}
+
+        .details-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            margin-top: 10px;
+        }
+
+        .details-list .list {
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 18px;
+            color: #666;
+            margin: 0;
+            padding: 0;
+            transition: all .3s;
+        }
+
+        .details-list .list strong {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 18px;
+            color: #666;
+            margin: 0;
+            padding: 0;
+            transition: all .3s;
+        }
+
+        .details-list .list a {
+            display: inline-block;
+            color: #666;
+            transition: all .3s;
+            text-decoration: none;
+            margin: 0;
+            line-height: 18px
+        }
+
+        .item-description {
+            margin-top: 10px;
+        }
+
+        .products-item {
+            text-align: left;
+        }
+
+        .invoice-total-count {}
+
+        .invoice-total-count .list-single {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            font-size: 16px;
+            line-height: 28px;
+        }
+
+        .invoice-total-count .list-single strong {}
+
+        .invoice-subtotal {
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 15px;
+        }
+
+        .invoice-total {
+            padding-top: 10px;
+        }
+
+        .terms-condition-content {
+            margin-top: 30px;
+        }
+
+        .terms-flex-contents {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .terms-left-contents {
+            flex-basis: 50%;
+        }
+
+        .terms-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+            margin: 0;
+        }
+
+        .terms-para {
+            margin-top: 10px;
+        }
+
+        .invoice-footer {}
+
+        .invoice-flex-footer {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .single-footer-item {
+            flex: 1;
+        }
+
+        .single-footer {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .single-footer .icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 30px;
+            width: 30px;
+            font-size: 16px;
+            background-color: #000e8f;
+            color: #fff;
+        }
+
+        .icon-details {
+            flex: 1;
+        }
+
+        .icon-details .list {
+            display: block;
+            text-decoration: none;
+            color: #666;
+            transition: all .3s;
+            line-height: 24px;
+        }
+    </style>
+
+    <!-- Invoice area Starts -->
+    <div class="invoice-area">
+        <div class="invoice-wrapper">
+            <div class="invoice-header">
+                <div class="invoice-flex-contents">
+                    <div class="invoice-logo">
+                        <img src="https://www.logodesign.net/images/nature-logo.png" alt="" width="100px" height="100px">
+                    </div>
+                    <div class="invoice-header-contents" style="float:right;margin-top:-120px;">
+                        <h2 class="invoice-title">{{ __('INVOICE') }}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="invoice-details">
+                <div class="invoice-details-flex">
+                    <div class="invoice-single-details">
+                        <h4 class="invoice-details-title">{{ __('Invoice To:') }}</h4>
+                        <ul class="details-list">
+                            <li class="list"> <a href="#">{{ "Invoice No #" }} {{ $order_details->id }}</a> </li>
+                            <li class="list"> <a href="#">{{ auth()->user()->name }}</a> </li>
+                            <li class="list"> <a href="#"> {{ auth()->user()->user_info->phone }}</a> </li>
+                        </ul>
+                    </div>
+                    <div class="invoice-single-details" style="float:right;margin-top:-120px;">
+                        <h4 class="invoice-details-title">{{ __('Ship To:') }}</h4>
+                        <ul class="details-list">
+                            <li class="list"> <strong>{{ __('City') }}: </strong> {{ auth()->user()->user_info->city }} </li>
+                            <li class="list"> <strong>{{ __('Area') }}: </strong> {{ auth()->user()->user_info->address }} </li>
+                            <li class="list"> <strong>{{ __('Address') }}:
+                                </strong>{{  auth()->user()->user_info->zip }} </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item-description">
+                <h5 class="table-title">{{ __('Order Details') }}</h5>
+                <table class="custom--table">
+                    <thead>
+                        <tr>
+                            <th>{{ __('Title') }}</th>
+                            <th>{{ __('Unit Price') }}</th>
+                            <th>{{ __('Quantity') }}</th>
+                            <th>{{ __('Total') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+
+                        @foreach ($inventory_orders as $inventory_order)
+                        @php
+                            $total = $inventory_order->amount + $inventory_order->additional_price;
+                        @endphp
+                            <tr>
+
+                                <td>{{ $inventory_order->title }}</td>
+                                <td>${{ $total }}</td>
+                                <td>{{ $inventory_order->quantity }}</td>
+                                <td>${{ $total * $inventory_order->quantity}}</td>
+                            </tr>
+                        @endforeach
+                        <tr class="table_footer_row">
+                            <td colspan="3"><strong>{{ __('Total Price') }}</strong></td>
+                            <td><strong>${{ $order_details->total }}</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="item-description">
+                <div class="table-responsive">
+                    <h5 class="table-title">{{ __('Orders Details') }}</h5>
+                    <table class="custom--table">
+                        <thead class="head-bg">
+                            <tr>
+                                <th>{{ __('Buyer Details') }}</th>
+                                <th>{{ __('Date & Schedule') }}</th>
+                                <th>{{ __('Amount Details') }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <span class="data-span"> {{ __('Name: ') }}</span>{{ auth()->user()->name }} <br>
+                                    <span class="data-span"> {{ __('Email: ') }}</span> {{ auth()->user()->email }} <br>
+                                    <span class="data-span"> {{ __('Phone: ') }}{{ auth()->user()->user_info->phone }} <br>
+                                        
+                                </td>
+                                <td>
+                                     
+                                </td>
+                                <td>
+                                     
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <footer>
+                <h3 style="text-align: center">
+
+                </h3>
+            </footer>
+
+        </div>
+    </div>
+
+    <!-- Invoice area end -->
+
+</body>
+
 </html>

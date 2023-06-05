@@ -332,11 +332,10 @@
     <div class="cart_overlay"></div>
 </div>
 
-<!-- sidebar cart - end
-================================================== -->
+<!-- sidebar cart - end -->
 
-    <!-- product quick view modal - start  
-    ================================================== -->
+    <!-- product quick view modal - start -->
+
     <div class="modal fade" id="quickview_popup" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -347,19 +346,26 @@
             <div class="modal-body">
                 <div class="product_details">
                     <div class="container">
+                        {{-- @foreach ($products as $product) --}}
+
                         <div class="row">
                             <div class="col col-lg-6">
                                 <div class="product_details_image p-0">
-                                    <img src="{{ asset('frontend/images/shop/product_img_12.png') }}" alt>
+                                    {{-- <img src="{{ asset('storage/products/'.$product->image) }}" alt="image not found"> --}}
+                                    <img src="{{ asset('frontend/images/shop/product_img_12.png') }}" alt="image not found">
                                 </div>
                             </div>
                             
                             <div class="col-lg-6">
                                 <div class="product_details_content">
+                                    {{-- <h2 class="item_title">{{ $product->title }}</h2> --}}
                                     <h2 class="item_title">Macbook Pro</h2>
+
+                                    {{-- <p> {{ Str::limit($product->shot_description, 150, '...') }} </p> --}}
                                     <p>
                                         It is a long established fact that a reader will be distracted eget velit. Donec ac tempus ante. Fusce ultricies massa massa. Fusce aliquam, purus eget sagittis vulputate
                                     </p>
+                                    
                                     <div class="item_review">
                                         <ul class="rating_star ul_li">
                                             <li><i class="fas fa-star"></i></li>
@@ -371,41 +377,46 @@
                                         <span class="review_value">3 Rating(s)</span>
                                     </div>
                                     <div class="item_price">
-                                        <span>$620.00</span>
-                                        <del>$720.00</del>
+
+                                        {{-- <span>${{ $product->sale_price }}</span>
+                                        <del>${{ $product->price }}</del> --}}
+
+                                        <span>$1000</span>
+                                        <del>$1050</del>
                                     </div>
                                     <hr>
                                     <div class="item_attribute">
                                         <h3 class="title_text">Options <span class="underline"></span></h3>
-                                        <form action="#">
-                                            <div class="row">
-                                                <div class="col col-md-6">
-                                                    <div class="select_option clearfix">
-                                                        <h4 class="input_title">Size *</h4>
-                                                        <select>
-                                                            <option data-display="- Please select -">Choose A Option</option>
-                                                            <option value="1">Some option</option>
-                                                            <option value="2">Another option</option>
-                                                            <option value="3" disabled>A disabled option</option>
-                                                            <option value="4">Potato</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
+
+                                        {{-- <form action="#"> --}}
+
+                            <div class="row">
                                 <div class="col col-md-6">
                                     <div class="select_option clearfix">
                                         <h4 class="input_title">Color *</h4>
-                                        <select>
-                                            <option data-display="- Please select -">Choose A Option</option>
-                                            <option value="1">Some option</option>
-                                            <option value="2">Another option</option>
-                                            <option value="3" disabled>A disabled option</option>
-                                            <option value="4">Potato</option>
+                                        <select class="niceSelect">
+                                            <option data-display="- Please select -"  selected disabled>Choose A Option</option>
+                                            {{-- @foreach ($colors as $color)
+                                            <option value="{{ $color->colors->id }}">{{ $color->colors->name }}</option>
+                                            @endforeach --}}
                                         </select>
+                                        
+                                    </div>
+                                </div>
+                                <div class="col col-md-6">
+                                    <div class="select_option clearfix">
+                                        <h4 class="input_title">Size *</h4>
+                                        <select class="form-control">
+                
+                                        </select>
+                                        <p class="display_additional_price mt-2" style="color:#e20d3f;font-size: 14px;font-weight:600;">
+                                        </p>
                                     </div>
                                 </div>
                             </div>
-                            <span class="repuired_text">Repuired Fiields *</span>
-                        </form>
+                            <span class="required_text">Stock Quantity: <span class="quantity_limit"></span></span>
+
+                        {{-- </form> --}}
                     </div>
                 
     <div class="quantity_wrap">
@@ -424,6 +435,7 @@
             Total: $620,99
         </div>
     </div>
+
     <ul class="default_btns_group ul_li">
         <li><a class="addtocart_btn" href="#!">Add To Cart</a></li>
         <li><a href="#!"><i class="far fa-compress-alt"></i></a></li>
@@ -457,15 +469,19 @@
             </ul>
         </div>
     </div>
-        </div>
+</div>
+        {{-- @endforeach --}}
+
+              </div>
             </div>
-                </div>
-                    </div>
-                    </div>
-            </div>
+          </div>
         </div>
+    </div>
+</div>
+
     <!-- product quick view modal - end
     ================================================== -->
+
     @yield('content')
             
             <!-- newsletter_section - start

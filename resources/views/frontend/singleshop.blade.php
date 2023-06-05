@@ -109,8 +109,9 @@ $<del>{{ $product->price }}</del>
                         <select id="color_size" class="form-control">
 
                         </select>
-                        <p class="display_additional_price mt-2" style="color:#e20d3f;font-size: 14px;font-weight:600;"></p>
-                        </div>
+                        <p class="display_additional_price mt-2" style="color:#e20d3f;font-size: 14px;font-weight:600;">
+                        </p>
+                    </div>
                 </div>
             </div>
             <span class="required_text">Stock Quantity: <span class="quantity_limit"></span></span>
@@ -137,10 +138,6 @@ $<del>{{ $product->price }}</del>
                         <i class="fal fa-plus"></i>
                     </button>
                 </div>
-
-            {{-- <div class="total_price">Total: $<span class="display_total">{{$product->sale_price }}</span>
-                <p class="additional_price"></p>
-            </div> --}}
 
             <div class="total_price">Total: $<span class="display_total">{{$product->sale_price ?? $product->price }}</span>
                 <p class="additional_price" style="color:#e20d3f;font-size: 14px; font-weight:600;"></p>

@@ -91,8 +91,9 @@ class ShippingConditionController extends Controller
      * @param  \App\Models\ShippingCondition  $shippingCondition
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ShippingCondition $shippingCondition)
-    {
-        //
+    public function destroy($id) {
+        $shippingCondition = ShippingCondition::find($id);
+        $shippingCondition->delete();
+        return back()->with('warning', "Shipping Delete Successfull!");
     }
 }

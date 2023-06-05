@@ -1,7 +1,7 @@
 
 {{-- Font Awesome Free 5.15.1 by @fontawesome --}}
 
-@if ($message = Session::get('success'))
+{{-- @if ($message = Session::get('success'))
   <div class="toast bg-success toast_custom" data-delay="5000">
     <div class="toast-body">
       <div style="display: flex">
@@ -55,7 +55,7 @@
     </div>
   </div>
 </div>  
-@endif
+@endif --}}
 
 
  {{-- sweet alert message  --}}
@@ -96,12 +96,12 @@
   </script>
 @endif
 
-@if (Session::has('danger'))
+@if (Session::has('warning'))
   <script>
     Swal.fire({
       position: 'top-end',
-      icon: 'danger',
-      title: "{{ Session::get('danger') }}",
+      icon: 'warning',
+      title: "{{ Session::get('warning') }}",
       showConfirmButton: false,
       timer: 5000
     })
