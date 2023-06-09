@@ -55,7 +55,7 @@
             </table>
         </div>
     </div>
-    {{ $colors->links() }}
+    {{ $colors->links('vendor.custom_pagination') }}
     @endcan
 </div>
 

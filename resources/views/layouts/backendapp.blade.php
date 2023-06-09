@@ -13,19 +13,25 @@
     <meta name="robots" content="noindex">
 
     <!-- framework - css include -->
-    {{-- <link type="text/css" rel="stylesheet" href="{{ asset('backend/css/bootstrap.min.css') }}"> --}}
+    <link type="text/css" rel="stylesheet" href="{{ asset('backend/css/bootstrap.min.css') }}">
 
     <!-- Perfect Scrollbar -->
-    <link type="text/css" href="{{ asset('backend/css/perfect-scrollbar.css') }}" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="{{ asset('backend/css/perfect-scrollbar.css') }}">
 
     <!-- App CSS -->
-    <link type="text/css" href="{{ asset('backend/css/app.css') }}" rel="stylesheet">
+    <link type="text/css"rel="stylesheet" href="{{ asset('backend/css/app.css') }}" rel="stylesheet">
 
     <!-- Material Design Icons -->
-    <link type="text/css" href="{{ asset('backend/css/vendor-material-icons.css') }}" rel="stylesheet">
+    <link type="text/css"rel="stylesheet" href="{{ asset('backend/css/vendor-material-icons.css') }}">
 
     <!-- Font Awesome FREE Icons -->
-    <link type="text/css" href="{{ asset('backend/css/vendor-fontawesome-free.css') }}" rel="stylesheet">
+    <link type="text/css"rel="stylesheet" href="{{ asset('backend/css/vendor-fontawesome-free.css') }}">
+
+    <link type="text/css"rel="stylesheet" href="{{ asset('backend/css/fontawesome.css') }}">
+
+    <link type="text/css"rel="stylesheet" href="{{ asset('backend/css/icofont.css') }}">
+
+    <link type="text/css" rel="stylesheet" href="{{ asset('backend/css/stroke-gap-icons.css') }}">
 
        <!-- sweet alert css -->
     <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>

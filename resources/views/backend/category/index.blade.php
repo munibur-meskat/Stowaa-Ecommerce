@@ -61,7 +61,7 @@
             </table>
         </div>
     </div>
-    {{ $categories->links() }}
+    {{ $categories->links('vendor.custom_pagination') }}
     @endcan
 </div>
 

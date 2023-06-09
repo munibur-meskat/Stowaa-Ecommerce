@@ -15,13 +15,13 @@ class Product extends Model{
      * @var array
      */
     protected $guarded = ['id'];
-
-    public function categories(){
-        return $this->belongsToMany(Category::class);
-    }
     
     public function user(){
         return $this->belongsTo(User::class);
+    }
+
+    public function categories(){
+        return $this->belongsToMany(Category::class);
     }
 
     public function product_galleries(){

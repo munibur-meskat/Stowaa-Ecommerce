@@ -16,7 +16,7 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $categories = Category::with(['user:id,name'])->orderBy('id', 'DESC')->paginate('15');
+        $categories = Category::with(['user:id,name'])->orderBy('id', 'DESC')->paginate('10');
         return view('backend.category.index', compact('categories'));
     }
 

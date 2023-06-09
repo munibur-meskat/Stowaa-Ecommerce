@@ -16,7 +16,7 @@ class ColorController extends Controller
      */
     public function index()
     {
-        $colors = Color::orderBy('id', 'DESC')->paginate('15');
+        $colors = Color::orderBy('id', 'DESC')->paginate('10');
         return view('backend.colour.index', compact('colors'));
     }
 

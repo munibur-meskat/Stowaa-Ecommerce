@@ -16,7 +16,7 @@ class SizeController extends Controller
      */
     public function index()
     {
-        $sizes = Size::orderBy('id', 'DESC')->paginate('15');
+        $sizes = Size::orderBy('id', 'DESC')->paginate('10');
         return view('backend.size.index', compact('sizes'));
     }
 
