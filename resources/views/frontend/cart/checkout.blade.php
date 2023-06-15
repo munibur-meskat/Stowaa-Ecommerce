@@ -65,9 +65,9 @@
                               </p>
                               
                               <div class="clear"></div>
-                              <p class="form-row form-row notes" id="order_comments_field">
-                                 <label for="order_comments" class="">Order Notes</label>
-                                 <textarea name="order_comments" class="input-text " id="order_comments" placeholder="Notes about your order, e.g. special notes for delivery." rows="2" cols="5"></textarea>
+                              <p class="form-row form-row notes" id="order_note_field">
+                                 <label for="order_note" class="">Order Notes</label>
+                                 <textarea name="order_note" class="input-text " id="order_note" placeholder="Notes about your order, e.g. special notes for delivery." rows="2" cols="5"></textarea>
                               </p>
                               
                            </div>

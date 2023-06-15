@@ -134,7 +134,7 @@ class InventoryController extends Controller
         $request->validate([
             'title' => 'nullable',
             'quantity' => 'required',
-            'additional_price' => 'nullable|integer',
+            'additional_price' => 'nullable',
         ]);
 
         $inventory->products->title = $request->title;

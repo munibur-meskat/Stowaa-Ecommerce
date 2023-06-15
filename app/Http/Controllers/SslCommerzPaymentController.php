@@ -21,19 +21,8 @@ use App\Library\SslCommerz\SslCommerzNotification;
 
 class SslCommerzPaymentController extends Controller {
 
-    // public function exampleEasyCheckout()
-    // {
-    //     return view('exampleEasycheckout');
-    // }
-
-    // public function exampleHostedCheckout()
-    // {
-    //     return view('exampleHosted');
-    // }
-
-
     public function index(Request $request) {
-
+        // return $request;
         // return $request->ship_to_different_address;
 
         $request->validate([
@@ -59,30 +48,70 @@ class SslCommerzPaymentController extends Controller {
 
             if($cart->quantity > $cart->inventories->quantity){
                 return back()->with('error', $cart->inventories->products->title .'- Stock Out!');
-            }
-            $price = ($cart->inventories->products->sale_price ?? $cart->inventories->products->price) + $cart->inventories->additional_price ?? 0 * $cart->quantity;
+            }else {
+                $price = (($cart->inventories->products->sale_price ?? $cart->inventories->products->price) + ($cart->inventories->additional_price ?? 0)) * $cart->quantity;
 
-            $sub_total += $price;
+                $sub_total += $price;
+            }
         }
 
-        if (Session::has('coupon')){
-            if(Session::get('shipping_charge') && Session::get('coupon')['amount']){
-           
-                $grand_total = $sub_total + Session::get('shipping_charge') - Session::get('coupon')['amount'];
-            }else{
-                $grand_total = $sub_total + Session::get('shipping_charge');
-            }
-        }else{
-            $grand_total = $sub_total + Session::get('shipping_charge');
-        }
+        $sub_total;
+        $grand_total = ($sub_total - (Session::has('coupon') ? Session::get('coupon')['amount'] : 0)) + (Session::has('shipping_charge') ? Session::get('shipping_charge')  : 0);
        
         // return $grand_total;
         // return back()->with('success', 'Insert Successfull!');
 
         $post_data = array();
         $post_data['total_amount'] = $grand_total;
-        $post_data['currency'] = "USD";
+        $post_data['currency'] = "BDT";
         $post_data['tran_id'] = uniqid();
+
+            // Order table data insert
+            $insert_order = Order::create([
+                'user_id' => auth()->user()->id,
+                'total' => $post_data['total_amount'],
+                'transaction_id' => $post_data['tran_id'],
+                'coupon_name' => Session::get('coupon')['name'] ?? null,
+                'coupon_amount' =>  Session::get('coupon')['amount'] ?? null,
+                'shipping_charge' => Session::get('shipping_charge'),
+                'order_status' => 'Pending',
+                'payment_status' => 'Unpaid',
+                'order_note' => $request->order_note,
+    
+            ]);
+    
+            if($insert_order){
+                foreach($carts as $cart){
+                    InventoryOrder::create([
+                        'inventory_id' => $cart->inventory_id,
+                        'order_id' => $insert_order->id,
+                        'quantity' => $cart->quantity,
+                        'amount' => $cart->inventories->products->sale_price ?? $cart->inventories->products->price,
+                        'additional_amount' => $cart->inventories->additional_price ?? null,
+                    ]);
+                }
+            }
+    
+            if($request->ship_to_different_address && $insert_order){
+                $request->validate([
+                    'shipping_name' => 'required',
+                    'shipping_phone' => 'required',
+                    'shipping_address' => 'required',
+                    'shipping_city' => 'required',
+                    // 'shipping_postcode' => 'required',
+                    
+                ]);
+    
+                ShippingAddress::create([
+                    'order_id' => $insert_order->id,
+                    'name' => $request->shipping_name,
+                    'phone' => $request->shipping_phone,
+                    'address' => $request->shipping_address,
+                    'city' => $request->shipping_city,
+                    'zip' => $request->shipping_postcode,
+                ]);
+                                    
+            }
 
         # CUSTOMER INFORMATION
         $post_data['cus_name'] = auth()->user()->name;
@@ -117,52 +146,6 @@ class SslCommerzPaymentController extends Controller {
         $post_data['value_c'] = "ref003";
         $post_data['value_d'] = "ref004";
 
-        // Order table data insert
-        $insert_order = Order::create([
-            'user_id' => auth()->user()->id,
-            'total' => $post_data['total_amount'],
-            'transaction_id' => $post_data['tran_id'],
-            'coupon_name' => Session::get('coupon')['name'] ?? null,
-            'coupon_amount' =>  Session::get('coupon')['amount'] ?? null,
-            'shipping_charge' => Session::get('shipping_charge'),
-            'order_status' => 'Pending',
-            'payment_status' => 'Unpaid',
-            'order_note	' => $request->order_comments,
-
-        ]);
-
-        if($insert_order){
-            foreach($carts as $cart){
-                InventoryOrder::create([
-                    'inventory_id' => $cart->inventory_id,
-                    'order_id' => $insert_order->id,
-                    'quantity' => $cart->quantity,
-                    'amount' => $cart->inventories->products->sale_price ?? $cart->inventories->products->price,
-                    'additional_amount' => $cart->inventories->additional_price ?? null,
-                ]);
-            }
-        }
-
-        if($request->ship_to_different_address && $insert_order){
-            $request->validate([
-                'shipping_name' => 'required',
-                'shipping_phone' => 'required',
-                'shipping_address' => 'required',
-                'shipping_city' => 'required',
-                // 'shipping_postcode' => 'required',
-                
-            ]);
-
-            ShippingAddress::create([
-                'order_id' => $insert_order->id,
-                'name' => $request->shipping_name,
-                'phone' => $request->shipping_phone,
-                'address' => $request->shipping_address,
-                'city' => $request->shipping_city,
-                'zip' => $request->shipping_postcode,
-            ]);
-            					
-        }
 
         $sslc = new SslCommerzNotification();
         # initiate(Transaction Data , false: Redirect to SSLCOMMERZ gateway/ true: Show all the Payement gateway here )
@@ -173,7 +156,7 @@ class SslCommerzPaymentController extends Controller {
             $payment_options = array();
         }
 
-        // return back()->with('success', 'Insert Successfull!');
+        return back()->with('success', 'Insert Successfull!');
 
     }
 
@@ -184,13 +167,11 @@ class SslCommerzPaymentController extends Controller {
 
         $sslc = new SslCommerzNotification();
 
-        $order_details = Order::where('transaction_id', $tran_id)->select('id','transaction_id', 'order_status', 'total', 'payment_status','created_at')->first();
+        $order_details = Order::where('transaction_id', $tran_id)->select('id', 'total', 'transaction_id', 'coupon_name', 'coupon_amount', 'shipping_charge','order_status', 'payment_status', 'created_at')->first();
 
         $orderInventories = InventoryOrder::where('order_id', $order_details->id)->get();
 
         // return $order_details;
-
-        // return $pdf->download('invoice.pdf');
 
         // return $order_details;
 
@@ -216,6 +197,7 @@ class SslCommerzPaymentController extends Controller {
                $pdf = Pdf::loadView('invoice.order-invoice', compact('order_details','orderInventories'));
 
                $pdf->save( public_path('storage/invoice/' . $order_details->id . "_invoice.pdf" ));
+
                $pdf_path = url('/') . '/storage/invoice/' . $order_details->id . "_invoice.pdf";
 
                Invoice::create([

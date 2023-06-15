@@ -19,17 +19,17 @@
     <link type="text/css" rel="stylesheet" href="{{ asset('backend/css/perfect-scrollbar.css') }}">
 
     <!-- App CSS -->
-    <link type="text/css"rel="stylesheet" href="{{ asset('backend/css/app.css') }}" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="{{ asset('backend/css/app.css') }}" rel="stylesheet">
 
     <!-- Material Design Icons -->
-    <link type="text/css"rel="stylesheet" href="{{ asset('backend/css/vendor-material-icons.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('backend/css/vendor-material-icons.css') }}">
 
     <!-- Font Awesome FREE Icons -->
-    <link type="text/css"rel="stylesheet" href="{{ asset('backend/css/vendor-fontawesome-free.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('backend/css/vendor-fontawesome-free.css') }}">
 
-    <link type="text/css"rel="stylesheet" href="{{ asset('backend/css/fontawesome.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('backend/css/fontawesome.css') }}">
 
-    <link type="text/css"rel="stylesheet" href="{{ asset('backend/css/icofont.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('backend/css/icofont.css') }}">
 
     <link type="text/css" rel="stylesheet" href="{{ asset('backend/css/stroke-gap-icons.css') }}">
 
@@ -201,17 +201,17 @@ data-responsive-width="992px">
             data-perfect-scrollbar>
         <div class="sidebar-heading">Menu</div>
         <ul class="sidebar-menu">
-            <li class="sidebar-menu-item active open">
+            <li class="sidebar-menu-item {{ Route::is('dashboard.home') ? 'active' : '' }}">
                 <a class="sidebar-menu-button" href="{{ route('dashboard.home') }}">
                     <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">dvr</i>
                     <span class="sidebar-menu-text">Dashboards</span>
                 </a>
             </li>
 
-            <li class="sidebar-menu-item active open">
-                <a class="sidebar-menu-button" href="{{ route('dashboard.home') }}">
+            <li class="sidebar-menu-item">
+                <a class="sidebar-menu-button" href="{{ route('dashboard.home') ? 'active' : '' }}">
                     <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">dvr</i>
-                    <span class="sidebar-menu-text">Dashboards</span>
+                    <span class="sidebar-menu-text">Orders</span>
                 </a>
             </li>
 

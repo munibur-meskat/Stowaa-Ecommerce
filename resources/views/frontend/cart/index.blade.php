@@ -3,8 +3,7 @@
 @section('title', 'Carts')
 
 @section('content')
-       <!-- breadcrumb_section - start
-            ================================================== -->
+       <!-- breadcrumb_section - start -->
         <div class="breadcrumb_section">
             <div class="container">
                 <ul class="breadcrumb_nav ul_li">
@@ -13,11 +12,9 @@
                 </ul>
             </div>
         </div>
-            <!-- breadcrumb_section - end
-            ================================================== -->
+            <!-- breadcrumb_section - end -->
 
-            <!-- cart_section - start
-    ================================================== -->
+            <!-- cart_section - start -->
     <section class="cart_section section_space">
         <div class="container">
             <div class="cart_update_wrap">
@@ -70,7 +67,7 @@
                                         <button type="button" class="input_number_decrement">
                                             <i class="fal fa-minus"></i>
                                         </button>
-                                        <input class="input_number" name="quantity" type="number" value="{{ $cart->quantity }}">
+                                        <input type="number" class="input_number" name="quantity" value="{{ $cart->quantity }}">
                                         <button type="button" class="input_number_increment">
                                             <i class="fal fa-plus"></i>
                                         </button>
@@ -83,8 +80,11 @@
                             <td class="text-center" style="width: 130px">
                                 <span>$</span>
                                 <span class="price_text total_price">
+
                                     {{ $cart->cart_total }}
+
                                     {{-- {{ ($cart->inventories->products->sale_price +  $cart->inventories->additional_price) * $cart->quantity}} --}}
+
                                 </span>
                             </td>
                             <td class="text-center">
@@ -142,7 +142,6 @@
                         <form action="#">
                             <div class="select_option clearfix">
                                 <select class="form-control niceSelect nice-select select_shipping">
-                                    {{-- style="display: none;" --}}
                                     <option data-display="Select Your Currency">Select Your Option</option>
                                     
                                     @foreach ($shipping_conditions as $shipping_condition)
@@ -158,10 +157,6 @@
                 <div class="col col-lg-6">
                     <div class="cart_total_table">
                         <h3 class="wrap_title">Cart Totals</h3>
-
-                        {{-- @if (Session::has('shipping_charge'))
-                        {{ Session::get('shipping_charge') }}
-                        @endif --}}
 
                         <ul class="ul_li_block">
                             <li>
@@ -200,6 +195,7 @@
     </section>
             
              {{-- cart_section - end  --}}
+             
 @endsection
 
 @section('js')
@@ -243,7 +239,7 @@
            },
            dataType: 'JSON',
            success:function(data){
-            sub_total.html(parseFloat(data.cart_total).toFixed(2));
+            sub_total.html(parseFloat(data.total).toFixed(2));
             grand_total.html(parseFloat(data.grand_total).toFixed(2));
 
             console.log(data);
@@ -256,8 +252,8 @@
         var price = $(this).parents('.cart_parent').find('.price');
         var total_price = $(this).parents('.cart_parent').find('.total_price');
         var cart_id = $(this).parent('.quantity_input').children('.cart_id').val();
-        var cart_total = $(this).parent('.quantity_input').children('.cart_total');
         var number = $(this).parent('.quantity_input').children('.input_number');
+        var cart_total = $(this).parent('.quantity_input').children('.cart_total');
 
         var dnc = number.val();
         if (dnc > 1) {
@@ -279,7 +275,7 @@
            },
            dataType: 'JSON',
            success:function(data){
-            sub_total.html(parseFloat(data.cart_total).toFixed(2));
+            sub_total.html(parseFloat(data.total).toFixed(2));
             grand_total.html(parseFloat(data.grand_total).toFixed(2));
             // console.log(data);
            }

@@ -19,5 +19,4 @@ class InventoryOrder extends Model {
         return $this->belongsTo(Inventory::class, 'inventory_id');
     }
 
-
 }

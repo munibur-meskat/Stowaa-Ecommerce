@@ -17,19 +17,9 @@ class CartController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         $carts = Cart::with('inventories')->where('user_id', auth()->user()->id)->get();
         $shipping_conditions = ShippingCondition::get();
-
-        // foreach($carts as $cart){
-        //     if ($cart->inventory->products->sale_price){
-        //         $total_price = $cart->inventory->products->sale_price +  $cart->inventory->additional_price;
-        //     }
-        //     else{
-        //         $total_price = $cart->inventory->products->price +  $cart->inventory->additional_price;
-        //     }
-        // }
         
         return view('frontend.cart.index', compact('carts', 'shipping_conditions'));
     }
@@ -109,7 +99,7 @@ class CartController extends Controller
         $grand_total = $cart_total - (Session::get('coupon')['amount'] ?? 0);
 
         $cart_data = [
-            'cart_total' => $cart_total,
+            'total' => $cart_total,
             'grand_total' => $grand_total,
         ];
 
@@ -185,7 +175,7 @@ class CartController extends Controller
         //         $request->session()->forget('shipping_charge');
         //     }
 
-        $carts = Cart::with('inventories')->where('user_id', auth()->user()->id)->get();
+        $carts = Cart::where('user_id', auth()->user()->id)->get();
         return view('frontend.cart.checkout', compact('carts'));
     }
 }
