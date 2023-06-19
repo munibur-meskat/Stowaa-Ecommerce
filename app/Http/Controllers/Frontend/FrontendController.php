@@ -10,4 +10,7 @@ class FrontendController extends Controller
     public function index(){
         return view('frontend.index');
     }
+    public function userlogin(){
+        return view('frontend.index');
+    }
 }

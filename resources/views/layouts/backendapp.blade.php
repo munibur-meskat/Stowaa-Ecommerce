@@ -208,8 +208,8 @@ data-responsive-width="992px">
                 </a>
             </li>
 
-            <li class="sidebar-menu-item">
-                <a class="sidebar-menu-button" href="{{ route('dashboard.home') ? 'active' : '' }}">
+            <li class="sidebar-menu-item {{ Route::is('dashboard.order.index') ? 'active' : '' }}">
+                <a class="sidebar-menu-button" href="{{ route('dashboard.order.index') }}">
                     <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">dvr</i>
                     <span class="sidebar-menu-text">Orders</span>
                 </a>

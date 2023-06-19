@@ -16,6 +16,7 @@ use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\UserMetaController;
 use App\Http\Controllers\Backend\InventoryController;
+use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\SslCommerzPaymentController;
 use App\Http\Controllers\Backend\UserProfileController;
@@ -39,7 +40,7 @@ use App\Http\Controllers\PdfController;
 
     Route::controller(FrontendController::class)->name('frontend.')->group(function () {
     Route::get('/', 'index')->name('home');
-    Route::get('/user/login-signup', 'userlogin')->name('userlogin');
+    Route::get('/user/login-signup', 'userlogin')->name('user.login');
     });
 
     //shop route
@@ -55,15 +56,15 @@ use App\Http\Controllers\PdfController;
 
     //cart route
 
-    Route::controller(CartController::class)->middleware(['auth', 'verified'])->name('frontend.cart.')->group(function () {
+    Route::controller(CartController::class)->prefix('cart')->middleware(['auth', 'verified'])->name('frontend.cart.')->group(function () {
 
-    Route::get('cart', 'index')->name('index');
-    Route::post('cart/store', 'store')->name('store');
-    Route::delete('cart/destroy/{cart}', 'destroy')->name('destroy');
-    Route::post('cart/update', 'update')->name('update');
+    Route::get('', 'index')->name('index');
+    Route::post('/store', 'store')->name('store');
+    Route::delete('/destroy/{cart}', 'destroy')->name('destroy');
+    Route::post('/update', 'update')->name('update');
 
-    Route::post('cart/coupon/apply', 'couponApply')->name('coupon.apply');
-    Route::post('cart/apply/shipping', 'shippingApply')->name('shipping.apply');
+    Route::post('/coupon/apply', 'couponApply')->name('coupon.apply');
+    Route::post('/apply/shipping', 'shippingApply')->name('shipping.apply');
 
     Route::get('checkout', 'checkoutOrder')->name('checkout.order');
     });
@@ -210,6 +211,10 @@ use App\Http\Controllers\PdfController;
 
     // Route::get('/restore/{id}', 'restore')->name('restore');
     // Route::delete('/permanent/delete/{id}', 'permanentDestroy')->name('permanent.destroy');
+    });
+
+    Route::controller(OrderController::class)->prefix('order')->name('order.')->group(function () {
+        Route::get('/', 'index')->name('index');
     });
 
 });
