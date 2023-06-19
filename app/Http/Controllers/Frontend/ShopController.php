@@ -64,18 +64,26 @@ class ShopController extends Controller {
 
         if($inventory->products->sale_price){
             $price = $inventory->products->sale_price + $inventory->additional_price;
-            // $total_price = $inventory->products->sale_price + $inventory->additional_price;
         }else{
             $price = $inventory->products->price + $inventory->additional_price;
-            // $total_price = $inventory->products->price + $inventory->additional_price;
         }
 
-        $data = [];
-        $data['quantity'] = $inventory->quantity;
-        $data['additional_price'] = $inventory->additional_price;
-        $data['price'] = $price;
-        $data['inventory_id'] = $inventory->id;
+        // $data = [];
+        // $data['quantity'] = $inventory->quantity;
+        // $data['additional_price'] = $inventory->additional_price;
+        // $data['price'] = $price;
+        // $data['inventory_id'] = $inventory->id;
+        
         // $data['total_price'] = $total_price;
+
+        // or
+        
+        $data = [
+            'quantity' => $inventory->quantity,
+            'additional_price' => $inventory->additional_price,
+            'price' => $price,
+            'inventory_id' => $inventory->id,
+        ];
 
         // return response()->JSON($inventory);
 

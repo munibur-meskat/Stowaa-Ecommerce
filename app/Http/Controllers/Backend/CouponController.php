@@ -104,8 +104,10 @@ class CouponController extends Controller {
      * @param  \App\Models\Coupon  $coupon
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Coupon $coupon)
+    public function destroy($id)
     {
-        //
+        $coupon = Coupon::find($id);
+        $coupon->delete();
+        return back()->with('warning', "Coupon Delete Successfull!");
     }
 }

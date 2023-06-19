@@ -17,16 +17,6 @@ class InventoryController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    // public function index($id)
-    // {
-    //     $product = Product::with(['inventories'=> function($q){
-    //         $q->with('color');
-    //         $q->with('size');
-    //     }])->findOrfail($id);
-    //     $colors = Color::all();
-    //     return view('backend.inventory.index', compact('product','colors'));
-    // }
-
     public function index($product_id) {
 
         $product = Product::findOrfail($product_id);

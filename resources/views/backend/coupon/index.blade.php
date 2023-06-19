@@ -42,7 +42,17 @@
                             <td>{{ $coupon->start_date->format('d-m-Y') }}</td>
                             <td>{{ $coupon->end_date->format('d-m-Y') }}</td>
                             <td>
-                                <a href="{{ route('dashboard.coupon.edit', $coupon->id) }}"><button type="button" class="btn btn-primary">edit</button></a>
+                                <a href="{{ route('dashboard.coupon.edit', $coupon->id) }}"><button type="button" class="btn btn-primary" style="font-size: 12px;border: none;padding: 5px 10px;text-align: center;text-decoration: none;display: inline-block;margin: 4px 2px;cursor: pointer;">edit</button></a>
+
+                                {{-- <a href="{{ route('dashboard.coupon.delete', $coupon->id) }}"><button type="button" class="btn btn-primary">delete</button></a> --}}
+
+                                <form action="{{ route('dashboard.coupon.destroy', $coupon->id) }}" method="POST" class="d-inline">
+                                
+                                    @method('DELETE')
+                                    @csrf
+    
+                                    <button type="submit" class="btn btn-danger delete_btn" style="font-size: 12px;border: none;padding: 5px 10px;text-align: center;text-decoration: none;display: inline-block;margin: 4px 2px;cursor: pointer;">delete</button>
+                                </form>
                             </td>
                            </tr>
                         @endforeach
@@ -99,4 +109,41 @@
 </div>
 </section>
 
+@endsection
+
+@section('header-css')
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" >
+@endsection
+
+@section('footer-js')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('.delete_btn').on('click', function(){
+
+            Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                $(this).parent('form').submit();
+                Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+                )
+            }
+            })
+
+        })
+    })
+    </script>
 @endsection

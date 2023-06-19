@@ -120,8 +120,9 @@ $<del>{{ $product->price }}</del>
 
         <form action="{{ route('frontend.cart.store') }}" method="POST">
             @csrf
-        {{-- Quantity --}}
-        {{-- add to cart  --}}
+        <!-- Quantity -->
+        <!-- add to cart -->
+
         <input type="hidden" name="inventory_id" id="inventory_id">
         <input type="hidden" name="total" id="total">
 
@@ -567,7 +568,7 @@ $<del>{{ $product->price }}</del>
 @section('js')
 <script>
     $(document).ready(function() {
-
+        
         var product_price = $('.product_price'),
             color_change = $('#color_change'),
             color_size = $('#color_size'),
@@ -577,18 +578,17 @@ $<del>{{ $product->price }}</del>
             additional_price = $('.additional_price'),
             stock_quantity = null;
 
-         var input_number = $('.input_number').val(1),
-         quantity = input_number.val();
+        var input_number = $('.input_number').val(1),
+            quantity = input_number.val();
 
-        // color change via size change start
-        color_change.on('change', function(e){ 
-       e.preventDefault();
+    // color change via size change start
+    color_change.on('change', function(e){ 
+    e.preventDefault();
 
-    //    color_size.removeAttr('disabled');
+    // color_size.removeAttr('disabled');
 
        var color_id = color_change.val();
        var product_id = {{ $product->id }}
-
     //    alert(product_id)
 
        $.ajax({
@@ -612,16 +612,16 @@ $<del>{{ $product->price }}</del>
         input_number.val(1);
         // display_total.html('');
     });
-    // color change via size change end
 
-    // size change via additional_price change start
+    // end color change via size change
+    // start size change via additional_price change
+    
     color_size.on('change', function(e){
-       e.preventDefault();
+    e.preventDefault();
 
        var color_id = color_change.val();
        var size_id = color_size.val();
        var product_id = {{ $product->id }}
-
     //    alert(product_id);
 
        $.ajax({
@@ -642,8 +642,6 @@ $<del>{{ $product->price }}</del>
             $('#inventory_id').val(data.inventory_id);
             $('#total').val(parseFloat(data.price).toFixed(2));
 
-            // $('#total').val(data.price);
-
             console.log(data);
 
             if (data.additional_price) {
@@ -651,7 +649,6 @@ $<del>{{ $product->price }}</del>
                 additional_price.html('Additional: $' + data.additional_price);
 
                 // console.log(display_additional_price);
-                
             }
             else{
                 display_additional_price.html('');
@@ -672,13 +669,15 @@ $<del>{{ $product->price }}</del>
     });
 
     //Quantity increment
+    // quantity < parseInt(stock_quantity)
+
     $('.input_number_increment').on('click', function(){
-        if (quantity <  parseInt(stock_quantity)) {
+        if (quantity < quantity_limit.html() ) {
+            
             quantity++;
             input_number.val(quantity);
             display_total.html(parseFloat(product_price.html() * quantity).toFixed(2));
             $('#total').val(parseFloat(product_price.html() * quantity).toFixed(2));
-            // $('#total').val(product_price.html() * quantity);
 
             // console.log(product_price); 
         }
@@ -690,21 +689,14 @@ $<del>{{ $product->price }}</del>
 
     //Quantity decrement
     $('.input_number_decrement').on('click', function(){
-       
-        // if (product_quantity.val() <= 0) {
-        //     console.log(quantity, product_quantity.val());
-        //     return;
-        // }
 
         if (quantity > 1) {
             quantity--;
             input_number.val(quantity);
             display_total.html(parseFloat(product_price.html() * quantity).toFixed(2));
             $('#total').val(parseFloat(product_price.html() * quantity).toFixed(2));
-            // $('#total').val(product_price.html() * quantity);
         }
     });
-
 
     });
 </script>

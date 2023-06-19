@@ -67,7 +67,7 @@
                                         <button type="button" class="input_number_decrement">
                                             <i class="fal fa-minus"></i>
                                         </button>
-                                        <input type="number" class="input_number" name="quantity" value="{{ $cart->quantity }}">
+                                        <input type="number" class="input_number" name="quantity[]" value="{{ $cart->quantity }}">
                                         <button type="button" class="input_number_increment">
                                             <i class="fal fa-plus"></i>
                                         </button>
@@ -277,6 +277,7 @@
            success:function(data){
             sub_total.html(parseFloat(data.total).toFixed(2));
             grand_total.html(parseFloat(data.grand_total).toFixed(2));
+            
             // console.log(data);
            }
         });
