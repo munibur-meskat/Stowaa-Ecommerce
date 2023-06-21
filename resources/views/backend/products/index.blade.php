@@ -74,7 +74,6 @@
           </div>
         </div>
         
-        {{-- ========== --}}
         <div class="pagination_wrap">
             {{ $products->links('vendor.custom_pagination') }}
         </div>

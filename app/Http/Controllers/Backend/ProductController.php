@@ -19,7 +19,7 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        $products = Product::with(['user:id,name','categories:id,name,slug'])->select('id','title','user_id','image','price','sale_price','discount')->orderBy('id', 'DESC')->paginate('8');
+        $products = Product::with(['user:id,name','categories:id,name,slug'])->select('id','title','user_id','image','price','sale_price','discount')->orderBy('id', 'DESC')->paginate('10');
 
         return view('backend.products.index', compact('products'));
     }
